@@ -33,7 +33,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity PWM_Generador is
     Generic (
-        DATA_WIDTH : integer := 4  -- 16 niveles
+        DATA_WIDTH : integer := 4  -- 16 niveles(?)
         );
     Port (
         clk       : in std_logic;
@@ -44,8 +44,27 @@ entity PWM_Generador is
 end PWM_Generador;
 
 architecture Behavioral of PWM_Generador is
-
+    --el contador para el 0 a 15
+    signal counter : unsigned(DATA_WIDTH-1 downto 0) := (others => '0');
 begin
 
+    process(clk)
+    begin
+        if rising_edge(clk) then
+            if reset = '1' then
+                counter <= (others => '0');
+                pwm_out <= '0';
+            else
+                counter <= counter + 1; -- contador ++
+                
+                    if counter < unsigned(duty_cycle) then
+                        pwm_out <= '1';
+                    else
+                        pwm_out <= '0';
+                    end if;
+                    
+            end if;
+        end if;
+    end process;
 
 end Behavioral;
