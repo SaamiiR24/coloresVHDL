@@ -1,0 +1,27 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue Dec 16 15:41:47 2025
+# Process ID         : 8300
+# Current directory  : C:/Users/ahouc/Desktop/PROYECTOS_SAMIR_VIVADO/coloresVHDL
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent7164 C:\Users\ahouc\Desktop\PROYECTOS_SAMIR_VIVADO\coloresVHDL\RGB2.xpr
+# Log file           : C:/Users/ahouc/Desktop/PROYECTOS_SAMIR_VIVADO/coloresVHDL/vivado.log
+# Journal file       : C:/Users/ahouc/Desktop/PROYECTOS_SAMIR_VIVADO/coloresVHDL\vivado.jou
+# Running On         : DESKTOP-37GHMUV
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : 11th Gen Intel(R) Core(TM) i5-11400 @ 2.60GHz
+# CPU Frequency      : 2592 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 17042 MB
+# Swap memory        : 15032 MB
+# Total Virtual      : 32075 MB
+# Available Virtual  : 12878 MB
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/ahouc/Desktop/PROYECTOS_SAMIR_VIVADO/coloresVHDL/RGB2.xpr
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
