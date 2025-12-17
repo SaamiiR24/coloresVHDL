@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2025.1 (64-bit)
+# SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
+# IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
+# SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
+# Start of session at: Mon Dec 15 15:11:44 2025
+# Process ID         : 31688
+# Current directory  : C:/Users/jacob/Downloads/JaCRGB2 - prueba1/SAMIRRGB/SAMIRRGB.runs/impl_1
+# Command line       : vivado.exe -log Top_Level.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source Top_Level.tcl -notrace
+# Log file           : C:/Users/jacob/Downloads/JaCRGB2 - prueba1/SAMIRRGB/SAMIRRGB.runs/impl_1/Top_Level.vdi
+# Journal file       : C:/Users/jacob/Downloads/JaCRGB2 - prueba1/SAMIRRGB/SAMIRRGB.runs/impl_1\vivado.jou
+# Running On         : LAPTOP-JIVQAT26
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26100
+# Processor Detail   : Intel(R) Core(TM) i7-10870H CPU @ 2.20GHz
+# CPU Frequency      : 2208 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 17007 MB
+# Swap memory        : 4563 MB
+# Total Virtual      : 21570 MB
+# Available Virtual  : 3477 MB
+#-----------------------------------------------------------
+source Top_Level.tcl -notrace
