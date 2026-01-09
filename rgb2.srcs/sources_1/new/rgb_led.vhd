@@ -1,264 +1,297 @@
 library ieee;
-use ieee.std_logic_1164.all;
-use ieee.std_logic_arith.all;
-use ieee.std_logic_signed.all;
+  use ieee.std_logic_1164.all;
+  use ieee.std_logic_arith.all;
+  use ieee.std_logic_signed.all;
 
-entity RgbLed is
-   port(
-      clk_i : in std_logic;
-      rstn_i : in std_logic;
-      
-      -- Command button signals
-      btnl_i : in std_logic;-- si se pula este boton modificamos RGB's rojo
-      btnc_i : in std_logic;-- si se pulsa este boton  modificamosel RGB's verde
-      btnr_i : in std_logic;-- si se pulsa este boton modificamosel RGB's azul
-      btnd_i : in std_logic;-- apagan RGB's
-      btnu_i : in std_logic; --boton para aumentar pwm
-      -- LD16 PWM output signals LED RGB derecha
-      pwm1_red_o : out std_logic;
-      pwm1_green_o : out std_logic;
-      pwm1_blue_o : out std_logic;
-      
-      -- LD17 PWM output signals LED RGB izquierda
-      pwm2_red_o : out std_logic;
-      pwm2_green_o : out std_logic;
-      pwm2_blue_o : out std_logic;
-      
-       --LED's para simbolizar estados
-      stateLEDS : out std_logic_vector(3 downto 0)
-      
-   );
-end RgbLed;
+entity RGB_LED is
+  port (
+    CLK_I        : in    std_logic;
+    RSTN_I       : in    std_logic;
 
-architecture Behavioral of RgbLed is
+    -- Command button signals
+    BTNL_I       : in    std_logic; -- si se pula este boton modificamos RGB's rojo
+    BTNC_I       : in    std_logic; -- si se pulsa este boton  modificamosel RGB's verde
+    BTNR_I       : in    std_logic; -- si se pulsa este boton modificamosel RGB's azul
+    BTND_I       : in    std_logic; -- apagan RGB's
+    BTNU_I       : in    std_logic; -- boton para aumentar pwm
+    -- LD16 PWM output signals LED RGB derecha
+    PWM1_RED_O   : out   std_logic;
+    PWM1_GREEN_O : out   std_logic;
+    PWM1_BLUE_O  : out   std_logic;
 
--- Generador PWM
-component Pwm is
-port(
-   clk_i : in std_logic;
-   data_i : in std_logic_vector(7 downto 0);
-   pwm_o : out std_logic);
-end component;
+    -- LD17 PWM output signals LED RGB izquierda
+    PWM2_RED_O   : out   std_logic;
+    PWM2_GREEN_O : out   std_logic;
+    PWM2_BLUE_O  : out   std_logic;
 
--- Clock divider, determina la frecuencia en la que el color de los componentes aumenta/disminuye
--- 100MHz/10000000 = 10Hz. Es suficiente y diferente a la frecuencia de red (50Hz);
+    -- LED's para simbolizar estados
+    STATELEDS    : out   std_logic_vector(3 downto 0)
+  );
+end entity RGB_LED;
 
-constant CLK_DIV : integer := 10000000;
-signal clkCnt : integer := 0;
-signal slowClk : std_logic;
+architecture BEHAVIORAL of RGB_LED is
 
--- colorCnt will determina los valores PWM que pasamos a los RGB 
-signal colorCntred : std_logic_vector(4 downto 0) := "00000"; -- un contado por color, modificamos cada contador 
-signal colorCntgreen : std_logic_vector(4 downto 0) := "00000"; -- en cada estado 
-signal colorCntblue : std_logic_vector(4 downto 0) := "00000";
+  -- Generador PWM
+  component PWM is
+    port (
+      CLK_I  : in    std_logic;
+      DATA_I : in    std_logic_vector(7 downto 0);
+      PWM_O  : out   std_logic
+    );
+  end component PWM;
 
+  -- Clock divider, determina la frecuencia en la que el color de los componentes aumenta/disminuye
+  -- 100MHz/10000000 = 10Hz. Es suficiente y diferente a la frecuencia de red (50Hz);
 
--- Red, Green and Blue data signals
-signal red, green, blue : std_logic_vector(7 downto 0);
--- PWM Red, Green and BLue señales que van a los LEDS RGB 
-signal pwm_red, pwm_green, pwm_blue : std_logic;
+  constant clk_div               : integer := 10000000;
+  signal   clkcnt                : integer := 0;
+  signal   slowclk               : std_logic;
 
+  -- colorCnt will determina los valores PWM que pasamos a los RGB
+  signal colorcntred             : std_logic_vector(4 downto 0) := "00000"; -- un contado por color, modificamos cada contador
+  signal colorcntgreen           : std_logic_vector(4 downto 0) := "00000"; -- en cada estado
+  signal colorcntblue            : std_logic_vector(4 downto 0) := "00000";
 
--- Signals que apagan LD16 y LD17 
-signal fLed2Off, fLed1Off : std_logic;
+  -- Red, Green and Blue data signals
+  signal red                     : std_logic_vector(7 downto 0);
+  signal green                   : std_logic_vector(7 downto 0);
+  signal blue                    : std_logic_vector(7 downto 0);
+  -- PWM Red, Green and BLue señales que van a los LEDS RGB
+  signal pwm_red                 : std_logic;
+  signal pwm_green               : std_logic;
+  signal pwm_blue                : std_logic;
 
--- Maquina de estados
-type state_type is ( stInicio, -- Estado inicial todo apagado
-                     stRed,   -- modificamos color Red solo
-                     stGreen, -- modificamos color Green solo
-                     stBlue,  -- modificamos color Blue solo
-                     stLed12Off -- apagamos los dos LEDS
-                     ); 
--- Señales maquina de estados
-signal currentState, nextState : state_type;--NEXTSTATE Y CURRENTSTATE DE TODA LA VIDA
+  -- Signals que apagan LD16 y LD17
+  signal fled2off,     fled1off  : std_logic;
+
+  -- Maquina de estados
+
+  type state_type is (
+    STINICIO,                                                               -- Estado inicial todo apagado
+    STRED,                                                                  -- modificamos color Red solo
+    STGREEN,                                                                -- modificamos color Green solo
+    STBLUE,                                                                 -- modificamos color Blue solo
+    STLED12OFF                                                              -- apagamos los dos LEDS
+  );
+
+  -- Señales maquina de estados
+  signal currentstate, nextstate : state_type;                              -- NEXTSTATE Y CURRENTSTATE DE TODA LA VIDA
 
 begin
-   
-   -- Asignamos salidas
-   pwm1_red_o     <= pwm_red when fLed1Off = '0' else '0';
-   pwm1_green_o   <= pwm_green when fLed1Off = '0' else '0';
-   pwm1_blue_o    <= pwm_blue when fLed1Off = '0' else '0';
-   
-   pwm2_red_o     <= pwm_red when fLed2Off = '0' else '0';
-   pwm2_green_o   <= pwm_green when fLed2Off = '0' else '0';
-   pwm2_blue_o    <= pwm_blue when fLed2Off = '0' else '0';
 
--- PWM generadores:
-   PwmRed: Pwm
-   port map(
-      clk_i    => clk_i,
-      data_i   => red,
-      pwm_o    => pwm_red);
+  -- Asignamos salidas
+  PWM1_RED_O   <= pwm_red when fled1off = '0' else
+                  '0';
+  PWM1_GREEN_O <= pwm_green when fled1off = '0' else
+                  '0';
+  PWM1_BLUE_O  <= pwm_blue when fled1off = '0' else
+                  '0';
 
-   PwmGreen: Pwm
-   port map(
-      clk_i    => clk_i,
-      data_i   => green,
-      pwm_o    => pwm_green);
-   
-   PwmBlue: Pwm
-   port map(
-      clk_i    => clk_i,
-      data_i   => blue,
-      pwm_o    => pwm_blue);
+  PWM2_RED_O   <= pwm_red when fled2off = '0' else
+                  '0';
+  PWM2_GREEN_O <= pwm_green when fled2off = '0' else
+                  '0';
+  PWM2_BLUE_O  <= pwm_blue when fled2off = '0' else
+                  '0';
 
+  -- PWM generadores:
+  PWMRED : PWM
+    port map (
+      CLK_I  => CLK_I,
+      DATA_I => red,
+      PWM_O  => pwm_red
+    );
 
-  
-   SYNC_PROC: process(clk_i)
-   begin
-      if rising_edge(clk_i) then
-         if rstn_i = '0' then
-            currentState <= stInicio;
-         else
-            currentState <= nextState;
-         end if;        
+  PWMGREEN : PWM
+    port map (
+      CLK_I  => CLK_I,
+      DATA_I => green,
+      PWM_O  => pwm_green
+    );
+
+  PWMBLUE : PWM
+    port map (
+      CLK_I  => CLK_I,
+      DATA_I => blue,
+      PWM_O  => pwm_blue
+    );
+
+  SYNC_PROC : process (CLK_I) is
+  begin
+
+    if rising_edge(CLK_I) then
+      if (RSTN_I = '0') then
+        currentstate <= STINICIO;
+      else
+        currentstate <= nextstate;
       end if;
-   end process;
-   
-   
-   NEXT_STATE_DECODE: process(currentState, btnl_i, btnc_i, btnr_i, btnd_i)
-   begin
-      nextState <= currentState;  
-      case currentState is
-       when stInicio => -- Estado de inicio donde no pasa nada 
-            if btnl_i = '1' then
-               nextState <= stRed; -- si presionamos btnl pasamos a estado donde modificamos la intensidad del rojo
-            elsif btnc_i = '1' then
-               nextState <= stGreen; --si presionamos btnc pasamos a estado donde modificamos la intensidad del verde
-            elsif btnr_i = '1' then
-               nextState <= stBlue; --si presionamos btnr pasamos a estado donde modificamos la intensidad del azul
-            elsif btnd_i = '1' then 
-               nextState <= stLed12Off; --apagamos los leds
-            end if;
-            
-         when stRed => --Estado donde modificamos brillo del rojo
-            if btnc_i = '1' then
-               nextState <= stGreen; --Pasamos a estado donde modificamos el verde
-            elsif btnr_i = '1' then
-               nextState <= stBlue;  --Pasamos a estado donde modifcamos el azul
-            elsif btnd_i = '1' then
-               nextState <= stInicio; -- Pasamos a inicio
-            end if;
-            
-         when stGreen => --Estado donde modificamos el brillo del verde
-            if btnl_i = '1' then
-               nextState <= stRed; --Pasamos a estado donde modificamos el rojo
-            elsif btnr_i = '1' then
-               nextState <= stBlue; --Pasamos a estado donde modificamos el azul
-            elsif btnd_i = '1' then
-               nextState <= stInicio; --Pasamos a inicio
-            end if;
-            
-         when stBlue => -- Estado donde modificamos el brillo del azul
-            if btnl_i = '1' then
-               nextState <= stRed; --Pasamos a estado donde modificamos el rojo
-            elsif btnc_i = '1' then
-               nextState <= stGreen; --Pasamos a estado donde modificamos el verde 
-            elsif btnd_i = '1' then
-               nextState <= stInicio; --Pasamos a inicio
-            end if;
-           
-         when stLed12Off => -- Apagamos los dos leds
-            if btnd_i = '1' then
-               nextState <= stInicio;
-            end if;
-            
-         when others => nextState <= stInicio;
-   
-      end case;      
-   end process;
-   
-   -- clock prescaler
-   Prescaller: process(clk_i)
-   begin
-      if rising_edge(clk_i) then
-         if rstn_i = '0' then
-            clkCnt <= 0;
-         elsif clkCnt = CLK_DIV-1 then
-            clkCnt <= 0;
-         else
-            clkCnt <= clkCnt + 1;
-         end if;
+    end if;
+
+  end process SYNC_PROC;
+
+  NEXT_STATE_DECODE : process (currentstate, BTNL_I, BTNC_I, BTNR_I, BTND_I) is
+  begin
+
+    nextstate <= currentstate;
+
+    case currentstate is
+
+      when STINICIO =>             -- Estado de inicio donde no pasa nada
+
+        if (BTNL_I = '1') then
+          nextstate <= STRED;      -- si presionamos btnl pasamos a estado donde modificamos la intensidad del rojo
+        elsif (BTNC_I = '1') then
+          nextstate <= STGREEN;    -- si presionamos btnc pasamos a estado donde modificamos la intensidad del verde
+        elsif (BTNR_I = '1') then
+          nextstate <= STBLUE;     -- si presionamos btnr pasamos a estado donde modificamos la intensidad del azul
+        elsif (BTND_I = '1') then
+          nextstate <= STLED12OFF; -- apagamos los leds
+        end if;
+
+      when STRED =>                -- Estado donde modificamos brillo del rojo
+
+        if (BTNC_I = '1') then
+          nextstate <= STGREEN;    -- Pasamos a estado donde modificamos el verde
+        elsif (BTNR_I = '1') then
+          nextstate <= STBLUE;     -- Pasamos a estado donde modifcamos el azul
+        elsif (BTND_I = '1') then
+          nextstate <= STINICIO;   -- Pasamos a inicio
+        end if;
+
+      when STGREEN =>              -- Estado donde modificamos el brillo del verde
+
+        if (BTNL_I = '1') then
+          nextstate <= STRED;      -- Pasamos a estado donde modificamos el rojo
+        elsif (BTNR_I = '1') then
+          nextstate <= STBLUE;     -- Pasamos a estado donde modificamos el azul
+        elsif (BTND_I = '1') then
+          nextstate <= STINICIO;   -- Pasamos a inicio
+        end if;
+
+      when STBLUE =>               -- Estado donde modificamos el brillo del azul
+
+        if (BTNL_I = '1') then
+          nextstate <= STRED;      -- Pasamos a estado donde modificamos el rojo
+        elsif (BTNC_I = '1') then
+          nextstate <= STGREEN;    -- Pasamos a estado donde modificamos el verde
+        elsif (BTND_I = '1') then
+          nextstate <= STINICIO;   -- Pasamos a inicio
+        end if;
+
+      when STLED12OFF =>           -- Apagamos los dos leds
+
+        if (BTND_I = '1') then
+          nextstate <= STINICIO;
+        end if;
+
+      when others =>
+
+        nextstate <= STINICIO;
+
+    end case;
+
+  end process NEXT_STATE_DECODE;
+
+  -- clock prescaler
+  PRESCALLER : process (CLK_I) is
+  begin
+
+    if rising_edge(CLK_I) then
+      if (RSTN_I = '0') then
+        clkcnt <= 0;
+      elsif (clkcnt = clk_div - 1) then
+        clkcnt <= 0;
+      else
+        clkcnt <= clkcnt + 1;
       end if;
-   end process Prescaller;
-   
-   slowClk <= '1' when clkCnt = CLK_DIV-1 else '0'; -- 10 Hz que buscamos 
-   
-   process(clk_i, btnu_i, colorCntgreen, colorCntblue, colorCntred)
-   begin
-      if rising_edge(clk_i) then
-         if rstn_i = '0' then
-            colorCntred <= b"00000"; --Contador rojo apagado
-            colorCntgreen <= b"00000"; --Contador verde apagado
-            colorCntblue <= b"00000"; --Contador azul apagado
-         elsif slowClk = '1' then
-           if btnu_i = '1' then --Si presionamos el boton btnu aumentamos el brillo
-             if colorCntred = b"11111" OR colorCntgreen = b"11111" OR colorCntblue = b"11111" then 
-             colorCntred <= b"11111"; -- En el caso que los contadores estén en  máximo se quedan tal cual
-             colorCntblue <= b"11111"; -- Cuando funcione esto meto otro botón y toras condiciones para bajar el brillo
-             colorCntgreen <= b"11111";  -- Los contadores empiezan a 0 por lo que no deberia haber problema
-             else
-               if currentState = stRed then  -- cada estado modifica su contador
-               colorCntred <= colorCntred + b"00001"; -- se suma 1 (nivel de brillo) al contador cada vez que se pulse el boton
-               elsif currentState = stGreen then 
-                colorCntgreen <= colorCntgreen + b"00001";
-               elsif currentState = stBlue then 
-                colorCntblue <= colorCntblue + b"00001";
-               end if;
-              end if;
+    end if;
+
+  end process PRESCALLER;
+
+  slowclk <= '1' when clkcnt = clk_div - 1 else
+             '0'; -- 10 Hz que buscamos
+
+  process (CLK_I, BTNU_I, colorcntgreen, colorcntblue, colorcntred) is
+  begin
+
+    if rising_edge(CLK_I) then
+      if (RSTN_I = '0') then
+        colorcntred   <= b"00000";                                                                -- Contador rojo apagado
+        colorcntgreen <= b"00000";                                                                -- Contador verde apagado
+        colorcntblue  <= b"00000";                                                                -- Contador azul apagado
+      elsif (slowclk = '1') then
+        if (BTNU_I = '1') then                                                                    -- Si presionamos el boton btnu aumentamos el brillo
+          if (colorcntred = b"11111" or colorcntgreen = b"11111" or colorcntblue = b"11111") then
+            colorcntred   <= b"11111";                                                            -- En el caso que los contadores estén en  máximo se quedan tal cual
+            colorcntblue  <= b"11111";                                                            -- Cuando funcione esto meto otro botón y toras condiciones para bajar el brillo
+            colorcntgreen <= b"11111";                                                            -- Los contadores empiezan a 0 por lo que no deberia haber problema
+          else
+            if (currentstate = STRED) then                                                        -- cada estado modifica su contador
+              colorcntred <= colorcntred + b"00001";                                              -- se suma 1 (nivel de brillo) al contador cada vez que se pulse el boton
+            elsif (currentstate = STGREEN) then
+              colorcntgreen <= colorcntgreen + b"00001";
+            elsif (currentstate = STBLUE) then
+              colorcntblue <= colorcntblue + b"00001";
             end if;
           end if;
         end if;
-       
-   end process;
-  
-   process(currentState, colorCntred, colorCntgreen, colorCntblue)
-   begin
-  
-   
-   case currentState is 
-      when stInicio => 
-         stateLEDS(0) <= '1';
-         stateLEDS(1) <= '0';
-         stateLEDS(2) <= '0';
-         stateLEDS(3) <= '0';
-              
-      when stRed =>
-         red <= b"000" & colorCntred(4 downto 0);
-        
-         stateLEDS(0) <= '0';
-         stateLEDS(1) <= '1';
-         stateLEDS(2) <= '0';
-         stateLEDS(3) <= '0';
-       
-         
-      when stGreen =>
-         green <=  b"000" & colorCntgreen(4 downto 0);
-        
-         stateLEDS(2) <= '1';
-         stateLEDS(0) <= '0';
-         stateLEDS(1) <= '0';
-         stateLEDS(3) <= '0';
-      
-      when stBlue =>
-         blue <= b"000" & colorCntblue(4 downto 0);
-         
-         stateLEDS(3) <= '1';
-         stateLEDS(0) <= '0';
-         stateLEDS(1) <= '0';
-         stateLEDS(2) <= '0';
-        
-    
-      when stLed12Off =>
-         fLed2Off <= '1';
-         fLed1Off <= '1';
-         
+      end if;
+    end if;
+
+  end process;
+
+  process (currentstate, colorcntred, colorcntgreen, colorcntblue) is
+  begin
+
+    case currentstate is
+
+      when STINICIO =>
+
+        STATELEDS(0) <= '1';
+        STATELEDS(1) <= '0';
+        STATELEDS(2) <= '0';
+        STATELEDS(3) <= '0';
+
+      when STRED =>
+
+        red <= b"000" & colorcntred(4 downto 0);
+
+        STATELEDS(0) <= '0';
+        STATELEDS(1) <= '1';
+        STATELEDS(2) <= '0';
+        STATELEDS(3) <= '0';
+
+      when STGREEN =>
+
+        green <= b"000" & colorcntgreen(4 downto 0);
+
+        STATELEDS(2) <= '1';
+        STATELEDS(0) <= '0';
+        STATELEDS(1) <= '0';
+        STATELEDS(3) <= '0';
+
+      when STBLUE =>
+
+        blue <= b"000" & colorcntblue(4 downto 0);
+
+        STATELEDS(3) <= '1';
+        STATELEDS(0) <= '0';
+        STATELEDS(1) <= '0';
+        STATELEDS(2) <= '0';
+
+      when STLED12OFF =>
+
+        fled2off <= '1';
+        fled1off <= '1';
+
       when others =>
-        stateLEDS <= (OTHERS => '0');
-        fLed2Off <= '0';
-        fLed1Off <= '0';
-  
-       end case;
-   end process;
-  
-end Behavioral;
+
+        STATELEDS <= (others => '0');
+        fled2off  <= '0';
+        fled1off  <= '0';
+
+    end case;
+
+  end process;
+
+end architecture BEHAVIORAL;

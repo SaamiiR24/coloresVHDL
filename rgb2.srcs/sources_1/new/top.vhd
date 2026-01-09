@@ -1,169 +1,177 @@
 library ieee;
-use ieee.std_logic_1164.all;
-use ieee.std_logic_arith.all;
-use ieee.std_logic_signed.all;
+  use ieee.std_logic_1164.all;
+  use ieee.std_logic_arith.all;
+  use ieee.std_logic_signed.all;
 
-entity top is 
- PORT( 
-      clk_i: in std_logic;
-      reset: in std_logic;
-      
-      btnl_i : in std_logic;
-      btnc_i : in std_logic;
-      btnr_i : in std_logic;
-      btnd_i : in std_logic;
-      btnu_i : in std_logic; 
-      LED: out std_logic_vector(0 to 3);
-      rgb1_red_o     : out std_logic;
-      rgb1_green_o   : out std_logic;
-      rgb1_blue_o    : out std_logic;
-      rgb2_red_o     : out std_logic;
-      rgb2_green_o   : out std_logic;
-      rgb2_blue_o    : out std_logic
-      );
-      
-end top;
+entity TOP is
+  port (
+    CLK_I        : in    std_logic;
+    RESET        : in    std_logic;
 
-architecture behavioral of top is
+    BTNL_I       : in    std_logic;
+    BTNC_I       : in    std_logic;
+    BTNR_I       : in    std_logic;
+    BTND_I       : in    std_logic;
+    BTNU_I       : in    std_logic;
+    LED          : out   std_logic_vector(0 to 3);
+    RGB1_RED_O   : out   std_logic;
+    RGB1_GREEN_O : out   std_logic;
+    RGB1_BLUE_O  : out   std_logic;
+    RGB2_RED_O   : out   std_logic;
+    RGB2_GREEN_O : out   std_logic;
+    RGB2_BLUE_O  : out   std_logic
+  );
+end entity TOP;
 
-signal syn_edge1 : std_logic;
-signal syn_edge2 : std_logic;
-signal syn_edge3 : std_logic;
-signal syn_edge4 : std_logic;
-signal syn_edge5 : std_logic;
-signal edg_fsm1: std_logic;
-signal edg_fsm2: std_logic;
-signal edg_fsm3: std_logic;
-signal edg_fsm4: std_logic;
-signal edg_fsm5: std_logic;
+architecture BEHAVIORAL of TOP is
 
-COMPONENT RgbLed is 
-PORT (
-rstn_i : in std_logic;
-clk_i : in std_logic;
-btnl_i : in std_logic;
-btnc_i : in std_logic;
-btnr_i : in std_logic;
-btnd_i : in std_logic;
-btnu_i : in std_logic;
-      
+  signal syn_edge1 : std_logic;
+  signal syn_edge2 : std_logic;
+  signal syn_edge3 : std_logic;
+  signal syn_edge4 : std_logic;
+  signal syn_edge5 : std_logic;
+  signal edg_fsm1  : std_logic;
+  signal edg_fsm2  : std_logic;
+  signal edg_fsm3  : std_logic;
+  signal edg_fsm4  : std_logic;
+  signal edg_fsm5  : std_logic;
+
+  component RGB_LED is
+    port (
+      RSTN_I       : in    std_logic;
+      CLK_I        : in    std_logic;
+      BTNL_I       : in    std_logic;
+      BTNC_I       : in    std_logic;
+      BTNR_I       : in    std_logic;
+      BTND_I       : in    std_logic;
+      BTNU_I       : in    std_logic;
+
       -- LD16 PWM output signals LED RGB derecha
-pwm1_red_o : out std_logic;
-pwm1_green_o : out std_logic;
-pwm1_blue_o : out std_logic;
-      
+      PWM1_RED_O   : out   std_logic;
+      PWM1_GREEN_O : out   std_logic;
+      PWM1_BLUE_O  : out   std_logic;
+
       -- LD17 PWM output signals LED RGB izquierda
-pwm2_red_o : out std_logic;
-pwm2_green_o : out std_logic;
-pwm2_blue_o : out std_logic;
-      
-       -- LED's para simbolizar estados
- stateLEDS : out std_logic_vector(3 downto 0)
-);
-END COMPONENT;
+      PWM2_RED_O   : out   std_logic;
+      PWM2_GREEN_O : out   std_logic;
+      PWM2_BLUE_O  : out   std_logic;
 
+      -- LED's para simbolizar estados
+      STATELEDS    : out   std_logic_vector(3 downto 0)
+    );
+  end component RGB_LED;
 
-COMPONENT SYNCHRONIZER
-PORT ( 
-CLK : in std_logic;
-ASYNC_IN : in std_logic;
-SYNC_OUT : out std_logic
-);
-END COMPONENT;
+  component SYNCHRONIZER is
+    port (
+      CLK      : in    std_logic;
+      ASYNC_IN : in    std_logic;
+      SYNC_OUT : out   std_logic
+    );
+  end component SYNCHRONIZER;
 
-
-COMPONENT EDGE_DETECTOR
-PORT ( 
-CLK : in std_logic;
-SYNC_IN : in std_logic;
-EDGE : OUT std_logic
-);
-END COMPONENT;
+  component EDGE_DETECTOR is
+    port (
+      CLK     : in    std_logic;
+      SYNC_IN : in    std_logic;
+      EDGE    : out   std_logic
+    );
+  end component EDGE_DETECTOR;
 
 begin
 
-Inst_RgbLed : RgbLed PORT MAP (
-rstn_i => reset,
-clk_i => clk_i,
-btnl_i => edg_fsm1,
-btnc_i => edg_fsm2,
-btnr_i => edg_fsm3,
-btnd_i => edg_fsm4,
-btnu_i => edg_fsm5,
-pwm1_red_o => rgb1_red_o,
-pwm1_green_o => rgb1_green_o,
-pwm1_blue_o => rgb1_blue_o,
-pwm2_red_o => rgb2_red_o,
-pwm2_green_o => rgb2_green_o,
-pwm2_blue_o => rgb2_blue_o,
-stateLEDS => LED
-);
+  INST_RGBLED : RGB_LED
+    port map (
+      RSTN_I       => RESET,
+      CLK_I        => CLK_I,
+      BTNL_I       => edg_fsm1,
+      BTNC_I       => edg_fsm2,
+      BTNR_I       => edg_fsm3,
+      BTND_I       => edg_fsm4,
+      BTNU_I       => edg_fsm5,
+      PWM1_RED_O   => RGB1_RED_O,
+      PWM1_GREEN_O => RGB1_GREEN_O,
+      PWM1_BLUE_O  => RGB1_BLUE_O,
+      PWM2_RED_O   => RGB2_RED_O,
+      PWM2_GREEN_O => RGB2_GREEN_O,
+      PWM2_BLUE_O  => RGB2_BLUE_O,
+      STATELEDS    => LED
+    );
 
-Inst_SYNCHRNZR1 : SYNCHRONIZER PORT MAP (
-CLK => clk_i,
-ASYNC_IN => btnl_i,
-SYNC_OUT => syn_edge1
-);
+  INST_SYNCHRNZR1 : SYNCHRONIZER
+    port map (
+      CLK      => CLK_I,
+      ASYNC_IN => BTNL_I,
+      SYNC_OUT => syn_edge1
+    );
 
-Inst_SYNCHRNZR2 : SYNCHRONIZER PORT MAP (
-CLK => clk_i,
-ASYNC_IN => btnc_i,
-SYNC_OUT => syn_edge2
-);
+  INST_SYNCHRNZR2 : SYNCHRONIZER
+    port map (
+      CLK      => CLK_I,
+      ASYNC_IN => BTNC_I,
+      SYNC_OUT => syn_edge2
+    );
 
-Inst_SYNCHRNZR3 : SYNCHRONIZER PORT MAP (
-CLK => clk_i,
-ASYNC_IN => btnr_i,
-SYNC_OUT => syn_edge3
-);
+  INST_SYNCHRNZR3 : SYNCHRONIZER
+    port map (
+      CLK      => CLK_I,
+      ASYNC_IN => BTNR_I,
+      SYNC_OUT => syn_edge3
+    );
 
-Inst_SYNCHRNZR4 : SYNCHRONIZER PORT MAP (
-CLK => clk_i,
-ASYNC_IN => btnd_i,
-SYNC_OUT => syn_edge4
-);
+  INST_SYNCHRNZR4 : SYNCHRONIZER
+    port map (
+      CLK      => CLK_I,
+      ASYNC_IN => BTND_I,
+      SYNC_OUT => syn_edge4
+    );
 
-Inst_SYNCHRNZR5 : SYNCHRONIZER PORT MAP (
-CLK => clk_i,
-ASYNC_IN => btnu_i,
-SYNC_OUT => syn_edge5
-);
+  INST_SYNCHRNZR5 : SYNCHRONIZER
+    port map (
+      CLK      => CLK_I,
+      ASYNC_IN => BTNU_I,
+      SYNC_OUT => syn_edge5
+    );
 
-Ins_EDGEDTCTR1 : EDGE_DETECTOR PORT MAP (
-CLK => clk_i,
-SYNC_IN => syn_edge1,
-EDGE => edg_fsm1
-);
+  INS_EDGEDTCTR1 : EDGE_DETECTOR
+    port map (
+      CLK     => CLK_I,
+      SYNC_IN => syn_edge1,
+      EDGE    => edg_fsm1
+    );
 
-Ins_EDGEDTCTR2 : EDGE_DETECTOR PORT MAP (
-CLK => clk_i,
-SYNC_IN => syn_edge2,
-EDGE => edg_fsm2
-);
+  INS_EDGEDTCTR2 : EDGE_DETECTOR
+    port map (
+      CLK     => CLK_I,
+      SYNC_IN => syn_edge2,
+      EDGE    => edg_fsm2
+    );
 
-Ins_EDGEDTCTR3 : EDGE_DETECTOR PORT MAP (
-CLK => clk_i,
-SYNC_IN => syn_edge3,
-EDGE => edg_fsm3
-);
+  INS_EDGEDTCTR3 : EDGE_DETECTOR
+    port map (
+      CLK     => CLK_I,
+      SYNC_IN => syn_edge3,
+      EDGE    => edg_fsm3
+    );
 
-Ins_EDGEDTCTR4 : EDGE_DETECTOR PORT MAP (
-CLK => clk_i,
-SYNC_IN => syn_edge4,
-EDGE => edg_fsm4
-);
+  INS_EDGEDTCTR4 : EDGE_DETECTOR
+    port map (
+      CLK     => CLK_I,
+      SYNC_IN => syn_edge4,
+      EDGE    => edg_fsm4
+    );
 
-Ins_EDGEDTCTR5 : EDGE_DETECTOR PORT MAP (
-CLK => clk_i,
-SYNC_IN => syn_edge5,
-EDGE => edg_fsm5
-);
+  INS_EDGEDTCTR5 : EDGE_DETECTOR
+    port map (
+      CLK     => CLK_I,
+      SYNC_IN => syn_edge5,
+      EDGE    => edg_fsm5
+    );
 
- end behavioral;
+end architecture BEHAVIORAL;
 
 
 
-      
-      
-      
-      
+
+
+
+

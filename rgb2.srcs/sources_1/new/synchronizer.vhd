@@ -1,23 +1,30 @@
 library ieee;
-use ieee.std_logic_1164.all;
-use ieee.std_logic_arith.all;
-use ieee.std_logic_signed.all;
+  use ieee.std_logic_1164.all;
+  use ieee.std_logic_arith.all;
+  use ieee.std_logic_signed.all;
 
 entity SYNCHRONIZER is
- port (
- CLK : in std_logic;
- ASYNC_IN : in std_logic;
- SYNC_OUT : out std_logic
- );
-end SYNCHRONIZER;
+  port (
+    CLK      : in    std_logic;
+    ASYNC_IN : in    std_logic;
+    SYNC_OUT : out   std_logic
+  );
+end entity SYNCHRONIZER;
+
 architecture BEHAVIORAL of SYNCHRONIZER is
- signal sreg : std_logic_vector(1 downto 0);
+
+  signal sreg : std_logic_vector(1 downto 0);
+
 begin
- process (CLK)
- begin
- if rising_edge(CLK) then
- sync_out <= sreg(1);
- sreg <= sreg(0) & async_in;
- end if;
- end process;
-end BEHAVIORAL;
+
+  process (CLK) is
+  begin
+
+    if rising_edge(CLK) then
+      SYNC_OUT <= sreg(1);
+      sreg     <= sreg(0) & ASYNC_IN;
+    end if;
+
+  end process;
+
+end architecture BEHAVIORAL;
