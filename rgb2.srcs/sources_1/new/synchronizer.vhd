@@ -3,14 +3,14 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
 use ieee.std_logic_signed.all;
 
-entity SYNCHRNZR is
+entity SYNCHRONIZER is
  port (
  CLK : in std_logic;
  ASYNC_IN : in std_logic;
  SYNC_OUT : out std_logic
  );
-end SYNCHRNZR;
-architecture BEHAVIORAL of SYNCHRNZR is
+end SYNCHRONIZER;
+architecture BEHAVIORAL of SYNCHRONIZER is
  signal sreg : std_logic_vector(1 downto 0);
 begin
  process (CLK)

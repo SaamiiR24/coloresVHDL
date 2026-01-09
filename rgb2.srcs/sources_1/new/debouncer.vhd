@@ -10,7 +10,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity Dbncr is
+entity DEBOUNCER is
    generic(
       NR_OF_CLKS : integer := 4095 -- Number of System Clock periods while the incoming signal 
    );                              -- has to be stable until a one-shot output signal is generated
@@ -19,9 +19,9 @@ entity Dbncr is
       sig_i : in std_logic;
       pls_o : out std_logic
    );
-end Dbncr;
+end DEBOUNCER;
 
-architecture Behavioral of Dbncr is
+architecture Behavioral of DEBOUNCER is
 
 signal cnt : integer range 0 to NR_OF_CLKS-1;
 signal sigTmp : std_logic;

@@ -63,7 +63,7 @@ pwm2_blue_o : out std_logic;
 END COMPONENT;
 
 
-COMPONENT SYNCHRNZR
+COMPONENT SYNCHRONIZER
 PORT ( 
 CLK : in std_logic;
 ASYNC_IN : in std_logic;
@@ -72,7 +72,7 @@ SYNC_OUT : out std_logic
 END COMPONENT;
 
 
-COMPONENT EDGEDTCTR
+COMPONENT EDGE_DETECTOR
 PORT ( 
 CLK : in std_logic;
 SYNC_IN : in std_logic;
@@ -99,61 +99,61 @@ pwm2_blue_o => rgb2_blue_o,
 stateLEDS => LED
 );
 
-Inst_SYNCHRNZR1 : SYNCHRNZR PORT MAP (
+Inst_SYNCHRNZR1 : SYNCHRONIZER PORT MAP (
 CLK => clk_i,
 ASYNC_IN => btnl_i,
 SYNC_OUT => syn_edge1
 );
 
-Inst_SYNCHRNZR2 : SYNCHRNZR PORT MAP (
+Inst_SYNCHRNZR2 : SYNCHRONIZER PORT MAP (
 CLK => clk_i,
 ASYNC_IN => btnc_i,
 SYNC_OUT => syn_edge2
 );
 
-Inst_SYNCHRNZR3 : SYNCHRNZR PORT MAP (
+Inst_SYNCHRNZR3 : SYNCHRONIZER PORT MAP (
 CLK => clk_i,
 ASYNC_IN => btnr_i,
 SYNC_OUT => syn_edge3
 );
 
-Inst_SYNCHRNZR4 : SYNCHRNZR PORT MAP (
+Inst_SYNCHRNZR4 : SYNCHRONIZER PORT MAP (
 CLK => clk_i,
 ASYNC_IN => btnd_i,
 SYNC_OUT => syn_edge4
 );
 
-Inst_SYNCHRNZR5 : SYNCHRNZR PORT MAP (
+Inst_SYNCHRNZR5 : SYNCHRONIZER PORT MAP (
 CLK => clk_i,
 ASYNC_IN => btnu_i,
 SYNC_OUT => syn_edge5
 );
 
-Ins_EDGEDTCTR1 : EDGEDTCTR PORT MAP (
+Ins_EDGEDTCTR1 : EDGE_DETECTOR PORT MAP (
 CLK => clk_i,
 SYNC_IN => syn_edge1,
 EDGE => edg_fsm1
 );
 
-Ins_EDGEDTCTR2 : EDGEDTCTR PORT MAP (
+Ins_EDGEDTCTR2 : EDGE_DETECTOR PORT MAP (
 CLK => clk_i,
 SYNC_IN => syn_edge2,
 EDGE => edg_fsm2
 );
 
-Ins_EDGEDTCTR3 : EDGEDTCTR PORT MAP (
+Ins_EDGEDTCTR3 : EDGE_DETECTOR PORT MAP (
 CLK => clk_i,
 SYNC_IN => syn_edge3,
 EDGE => edg_fsm3
 );
 
-Ins_EDGEDTCTR4 : EDGEDTCTR PORT MAP (
+Ins_EDGEDTCTR4 : EDGE_DETECTOR PORT MAP (
 CLK => clk_i,
 SYNC_IN => syn_edge4,
 EDGE => edg_fsm4
 );
 
-Ins_EDGEDTCTR5 : EDGEDTCTR PORT MAP (
+Ins_EDGEDTCTR5 : EDGE_DETECTOR PORT MAP (
 CLK => clk_i,
 SYNC_IN => syn_edge5,
 EDGE => edg_fsm5
