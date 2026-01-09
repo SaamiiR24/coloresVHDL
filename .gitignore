@@ -6,7 +6,7 @@
 #Exclude all
 #########
 *
-!*/
+!*.srcs/
 !.gitignore
 ###########################################################################
 ##	VIVADO
@@ -26,8 +26,7 @@
 #.xci + .dcp: implementation possible but not re-synthesis
 #*.xci(www.spiritconsortium.org)
 !*.xci
-#*.dcp(checkpoint files)
-!*.dcp
+#!*.dcp(checkpoint files)
 !*.vds
 !*.pb
 #All bd comments and layout coordinates are stored within .ui
