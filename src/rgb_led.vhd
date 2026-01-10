@@ -22,8 +22,8 @@ end entity RGB_LED;
 architecture BEHAVIORAL of RGB_LED is
 
   -- PWM generator signals
-  signal rgb_duties               : rgb2_duty_vector_t;
-  signal common_counter           : rgb2_duty_t;
+  signal rgb_duties               : rgb_duty_vector_t;
+  signal common_counter           : rgb_duty_t;
   signal rgb_pwm                  : rgbled_t;
 
   -- Maquina de estados

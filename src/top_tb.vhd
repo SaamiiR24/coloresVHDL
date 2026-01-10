@@ -74,7 +74,7 @@ begin
 
   generate_clock(clk_i, simclk_period);  -- Board clock generator
 
-  process is
+  TEST_P : process is
   begin
 
     -- Give initial value to inputs
@@ -135,6 +135,6 @@ begin
       report "[PASSED]: end of simulation."
       severity failure;
 
-  end process;
+  end process TEST_P;
 
 end architecture TESTBENCH;

@@ -16,9 +16,9 @@ package rgb2_common is
 
   type rgbled_t is array(chan_id_t) of std_logic;
 
-  subtype rgb2_duty_t is unsigned(7 downto 0);
+  subtype rgb_duty_t is unsigned(7 downto 0);
 
-  type rgb2_duty_vector_t is array(chan_id_t) of rgb2_duty_t;
+  type rgb_duty_vector_t is array(chan_id_t) of rgb_duty_t;
 
   component FDIVIDER is
     generic (

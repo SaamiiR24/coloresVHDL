@@ -63,7 +63,7 @@ begin
       SYNC_OUT => rstn_sync
     );
 
-  SYNCHRNZRS : for i in btn_asyncs'range generate
+  SYNC_BTNS : for i in btn_asyncs'range generate
     signal synced : std_logic;
   begin
 
@@ -81,7 +81,7 @@ begin
         EDGE => btn_edges(i)
       );
 
-  end generate SYNCHRNZRS;
+  end generate SYNC_BTNS;
 
   INST_RGBLED : RGB_LED
     port map (
