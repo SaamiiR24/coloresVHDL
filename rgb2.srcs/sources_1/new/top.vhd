@@ -1,177 +1,96 @@
 library ieee;
   use ieee.std_logic_1164.all;
-  use ieee.std_logic_arith.all;
-  use ieee.std_logic_signed.all;
+  use work.rgb2_common.all;
 
 entity TOP is
+  generic (
+    CLKIN_FREQ : positive := 100_000_000
+  );
   port (
-    CLK_I        : in    std_logic;
-    RESET        : in    std_logic;
-
-    BTNL_I       : in    std_logic;
-    BTNC_I       : in    std_logic;
-    BTNR_I       : in    std_logic;
-    BTND_I       : in    std_logic;
-    BTNU_I       : in    std_logic;
-    LED          : out   std_logic_vector(0 to 3);
-    RGB1_RED_O   : out   std_logic;
-    RGB1_GREEN_O : out   std_logic;
-    RGB1_BLUE_O  : out   std_logic;
-    RGB2_RED_O   : out   std_logic;
-    RGB2_GREEN_O : out   std_logic;
-    RGB2_BLUE_O  : out   std_logic
+    CLK_I         : in    std_logic;
+    RSTN_I        : in    std_logic;
+    BTNL_I        : in    std_logic;
+    BTNC_I        : in    std_logic;
+    BTNR_I        : in    std_logic;
+    BTND_I        : in    std_logic;
+    BTNU_I        : in    std_logic;
+    LED           : out   std_logic_vector(0 to 2);
+    RGB1_RED_O    : out   std_logic;
+    RGB1_GREEN_O  : out   std_logic;
+    RGB1_BLUE_O   : out   std_logic;
+    RGB2_RED_O    : out   std_logic;
+    RGB2_GREEN_O  : out   std_logic;
+    RGB2_BLUE_O   : out   std_logic
   );
 end entity TOP;
 
 architecture BEHAVIORAL of TOP is
 
-  signal syn_edge1 : std_logic;
-  signal syn_edge2 : std_logic;
-  signal syn_edge3 : std_logic;
-  signal syn_edge4 : std_logic;
-  signal syn_edge5 : std_logic;
-  signal edg_fsm1  : std_logic;
-  signal edg_fsm2  : std_logic;
-  signal edg_fsm3  : std_logic;
-  signal edg_fsm4  : std_logic;
-  signal edg_fsm5  : std_logic;
+  signal sys_clk       : std_logic;
 
-  component RGB_LED is
-    port (
-      RSTN_I       : in    std_logic;
-      CLK_I        : in    std_logic;
-      BTNL_I       : in    std_logic;
-      BTNC_I       : in    std_logic;
-      BTNR_I       : in    std_logic;
-      BTND_I       : in    std_logic;
-      BTNU_I       : in    std_logic;
+  signal rstn_sync     : std_logic;
 
-      -- LD16 PWM output signals LED RGB derecha
-      PWM1_RED_O   : out   std_logic;
-      PWM1_GREEN_O : out   std_logic;
-      PWM1_BLUE_O  : out   std_logic;
+  signal btn_asyncs    : keypad_t;
+  signal btn_edges     : keypad_t;
 
-      -- LD17 PWM output signals LED RGB izquierda
-      PWM2_RED_O   : out   std_logic;
-      PWM2_GREEN_O : out   std_logic;
-      PWM2_BLUE_O  : out   std_logic;
-
-      -- LED's para simbolizar estados
-      STATELEDS    : out   std_logic_vector(3 downto 0)
-    );
-  end component RGB_LED;
-
-  component SYNCHRONIZER is
-    port (
-      CLK      : in    std_logic;
-      ASYNC_IN : in    std_logic;
-      SYNC_OUT : out   std_logic
-    );
-  end component SYNCHRONIZER;
-
-  component EDGE_DETECTOR is
-    port (
-      CLK     : in    std_logic;
-      SYNC_IN : in    std_logic;
-      EDGE    : out   std_logic
-    );
-  end component EDGE_DETECTOR;
+  signal rgb_1         : rgbled_t;
+  signal rgb_2         : rgbled_t;
 
 begin
 
+  btn_asyncs                              <= (BTNL_I, BTNC_I, BTNR_I, BTND_I, BTNU_I);
+  (RGB1_RED_O, RGB1_GREEN_O, RGB1_BLUE_O) <= rgb_1;
+  (RGB2_RED_O, RGB2_GREEN_O, RGB2_BLUE_O) <= rgb_2;
+
+  PRESCALER0 : FDIVIDER
+    generic map (
+      CLKIN_FREQ  => CLKIN_FREQ,
+      CLKOUT_FREQ => sysclk_freq
+
+    )
+    port map (
+      CLK_IN  => CLK_I,
+      CLK_OUT => sys_clk
+    );
+
+  SYNC_RSTN : SYNCHRONIZER
+    generic map (
+      QUIESCENT_VALUE => '1'
+    )
+    port map (
+      CLK      => sys_clk,
+      ASYNC_IN => RSTN_I,
+      SYNC_OUT => rstn_sync
+    );
+
+  SYNCHRNZRS : for i in btn_asyncs'range generate
+    signal synced : std_logic;
+  begin
+
+    SYNCHRNZR_I : SYNCHRONIZER
+      port map (
+        CLK      => sys_clk,
+        ASYNC_IN => btn_asyncs(i),
+        SYNC_OUT => synced
+      );
+
+    EDGEDTCTR_I : EDGE_DETECTOR
+      port map (
+        CLK  => sys_clk,
+        DIN  => synced,
+        EDGE => btn_edges(i)
+      );
+
+  end generate SYNCHRNZRS;
+
   INST_RGBLED : RGB_LED
     port map (
-      RSTN_I       => RESET,
-      CLK_I        => CLK_I,
-      BTNL_I       => edg_fsm1,
-      BTNC_I       => edg_fsm2,
-      BTNR_I       => edg_fsm3,
-      BTND_I       => edg_fsm4,
-      BTNU_I       => edg_fsm5,
-      PWM1_RED_O   => RGB1_RED_O,
-      PWM1_GREEN_O => RGB1_GREEN_O,
-      PWM1_BLUE_O  => RGB1_BLUE_O,
-      PWM2_RED_O   => RGB2_RED_O,
-      PWM2_GREEN_O => RGB2_GREEN_O,
-      PWM2_BLUE_O  => RGB2_BLUE_O,
-      STATELEDS    => LED
-    );
-
-  INST_SYNCHRNZR1 : SYNCHRONIZER
-    port map (
-      CLK      => CLK_I,
-      ASYNC_IN => BTNL_I,
-      SYNC_OUT => syn_edge1
-    );
-
-  INST_SYNCHRNZR2 : SYNCHRONIZER
-    port map (
-      CLK      => CLK_I,
-      ASYNC_IN => BTNC_I,
-      SYNC_OUT => syn_edge2
-    );
-
-  INST_SYNCHRNZR3 : SYNCHRONIZER
-    port map (
-      CLK      => CLK_I,
-      ASYNC_IN => BTNR_I,
-      SYNC_OUT => syn_edge3
-    );
-
-  INST_SYNCHRNZR4 : SYNCHRONIZER
-    port map (
-      CLK      => CLK_I,
-      ASYNC_IN => BTND_I,
-      SYNC_OUT => syn_edge4
-    );
-
-  INST_SYNCHRNZR5 : SYNCHRONIZER
-    port map (
-      CLK      => CLK_I,
-      ASYNC_IN => BTNU_I,
-      SYNC_OUT => syn_edge5
-    );
-
-  INS_EDGEDTCTR1 : EDGE_DETECTOR
-    port map (
-      CLK     => CLK_I,
-      SYNC_IN => syn_edge1,
-      EDGE    => edg_fsm1
-    );
-
-  INS_EDGEDTCTR2 : EDGE_DETECTOR
-    port map (
-      CLK     => CLK_I,
-      SYNC_IN => syn_edge2,
-      EDGE    => edg_fsm2
-    );
-
-  INS_EDGEDTCTR3 : EDGE_DETECTOR
-    port map (
-      CLK     => CLK_I,
-      SYNC_IN => syn_edge3,
-      EDGE    => edg_fsm3
-    );
-
-  INS_EDGEDTCTR4 : EDGE_DETECTOR
-    port map (
-      CLK     => CLK_I,
-      SYNC_IN => syn_edge4,
-      EDGE    => edg_fsm4
-    );
-
-  INS_EDGEDTCTR5 : EDGE_DETECTOR
-    port map (
-      CLK     => CLK_I,
-      SYNC_IN => syn_edge5,
-      EDGE    => edg_fsm5
+      RSTN_I     => rstn_sync,
+      CLK_I      => sys_clk,
+      KEYPAD_I   => btn_edges,
+      RGB_PWM1_O => rgb_1,
+      RGB_PWM2_O => rgb_2,
+      STATELEDS  => LED
     );
 
 end architecture BEHAVIORAL;
-
-
-
-
-
-
-

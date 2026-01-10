@@ -1,8 +1,8 @@
 
 library ieee;
   use ieee.std_logic_1164.all;
-  use ieee.std_logic_arith.all;
-  use ieee.std_logic_signed.all;
+  use ieee.numeric_std.all;
+  use work.rgb2_common.all;
 
 entity PWM is
   port (

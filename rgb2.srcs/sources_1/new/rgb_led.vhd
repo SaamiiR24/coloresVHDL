@@ -1,297 +1,155 @@
 library ieee;
   use ieee.std_logic_1164.all;
-  use ieee.std_logic_arith.all;
-  use ieee.std_logic_signed.all;
+  use ieee.numeric_std.all;
+  use work.rgb2_common.all;
+
+-- Initial state: mode 1, leds off
+-- MODE 1: channel duties locked, UP: on, DOWN: off, CENTER: mode 2
+-- MODE 2: leds on, LEFT/RIGHT: ->R<->G<->B<-, UP/DOWN: channel duty +/-, CENTER: mode 1
+--                              |___________|
 
 entity RGB_LED is
   port (
-    CLK_I        : in    std_logic;
-    RSTN_I       : in    std_logic;
-
-    -- Command button signals
-    BTNL_I       : in    std_logic; -- si se pula este boton modificamos RGB's rojo
-    BTNC_I       : in    std_logic; -- si se pulsa este boton  modificamosel RGB's verde
-    BTNR_I       : in    std_logic; -- si se pulsa este boton modificamosel RGB's azul
-    BTND_I       : in    std_logic; -- apagan RGB's
-    BTNU_I       : in    std_logic; -- boton para aumentar pwm
-    -- LD16 PWM output signals LED RGB derecha
-    PWM1_RED_O   : out   std_logic;
-    PWM1_GREEN_O : out   std_logic;
-    PWM1_BLUE_O  : out   std_logic;
-
-    -- LD17 PWM output signals LED RGB izquierda
-    PWM2_RED_O   : out   std_logic;
-    PWM2_GREEN_O : out   std_logic;
-    PWM2_BLUE_O  : out   std_logic;
-
-    -- LED's para simbolizar estados
-    STATELEDS    : out   std_logic_vector(3 downto 0)
+    CLK_I      : in    std_logic;                     -- Rising edge system clock
+    RSTN_I     : in    std_logic;                     -- Synchronous low level active reset
+    KEYPAD_I   : in    keypad_t;                      -- Command button signals
+    RGB_PWM1_O : out   rgbled_t;                      -- LD16 PWM output signals LED RGB derecha
+    RGB_PWM2_O : out   rgbled_t;                      -- LD17 PWM output signals LED RGB izquierda
+    STATELEDS  : out   std_logic_vector(0 to 2)       -- LED's para simbolizar estados
   );
 end entity RGB_LED;
 
 architecture BEHAVIORAL of RGB_LED is
 
-  -- Generador PWM
-  component PWM is
-    port (
-      CLK_I  : in    std_logic;
-      DATA_I : in    std_logic_vector(7 downto 0);
-      PWM_O  : out   std_logic
-    );
-  end component PWM;
-
-  -- Clock divider, determina la frecuencia en la que el color de los componentes aumenta/disminuye
-  -- 100MHz/10000000 = 10Hz. Es suficiente y diferente a la frecuencia de red (50Hz);
-
-  constant clk_div               : integer := 10000000;
-  signal   clkcnt                : integer := 0;
-  signal   slowclk               : std_logic;
-
-  -- colorCnt will determina los valores PWM que pasamos a los RGB
-  signal colorcntred             : std_logic_vector(4 downto 0) := "00000"; -- un contado por color, modificamos cada contador
-  signal colorcntgreen           : std_logic_vector(4 downto 0) := "00000"; -- en cada estado
-  signal colorcntblue            : std_logic_vector(4 downto 0) := "00000";
-
-  -- Red, Green and Blue data signals
-  signal red                     : std_logic_vector(7 downto 0);
-  signal green                   : std_logic_vector(7 downto 0);
-  signal blue                    : std_logic_vector(7 downto 0);
-  -- PWM Red, Green and BLue señales que van a los LEDS RGB
-  signal pwm_red                 : std_logic;
-  signal pwm_green               : std_logic;
-  signal pwm_blue                : std_logic;
-
-  -- Signals que apagan LD16 y LD17
-  signal fled2off,     fled1off  : std_logic;
+  -- PWM generator signals
+  signal rgb_duties               : rgb2_duty_vector_t;
+  signal common_counter           : rgb2_duty_t;
+  signal rgb_pwm                  : rgbled_t;
 
   -- Maquina de estados
+  -- State types
 
   type state_type is (
-    STINICIO,                                                               -- Estado inicial todo apagado
-    STRED,                                                                  -- modificamos color Red solo
-    STGREEN,                                                                -- modificamos color Green solo
-    STBLUE,                                                                 -- modificamos color Blue solo
-    STLED12OFF                                                              -- apagamos los dos LEDS
+    ST_OFF,                                      -- Initial state, LEDs switched-off and duties locked
+    ST_ON,                                       -- RGB LEDs switched-on and duties locked
+    ST_ADJUST                                    -- RGB LEDs switched-on and duties unocked
   );
 
-  -- Señales maquina de estados
-  signal currentstate, nextstate : state_type;                              -- NEXTSTATE Y CURRENTSTATE DE TODA LA VIDA
+  -- State variables
+  signal cur_state,   nxt_state   : state_type;  -- on/off & locked/unlocked state
+  signal cur_channel, nxt_channel : chan_id_t;   -- Channel selected for modification
 
 begin
 
-  -- Asignamos salidas
-  PWM1_RED_O   <= pwm_red when fled1off = '0' else
-                  '0';
-  PWM1_GREEN_O <= pwm_green when fled1off = '0' else
-                  '0';
-  PWM1_BLUE_O  <= pwm_blue when fled1off = '0' else
-                  '0';
+  RGB_PWM1_O <= rgb_pwm;
+  RGB_PWM2_O <= rgb_pwm;
 
-  PWM2_RED_O   <= pwm_red when fled2off = '0' else
-                  '0';
-  PWM2_GREEN_O <= pwm_green when fled2off = '0' else
-                  '0';
-  PWM2_BLUE_O  <= pwm_blue when fled2off = '0' else
+  PWMS : for i in rgb_pwm'range generate
+    rgb_pwm(i) <= '1' when (cur_state /= ST_OFF) and (common_counter < rgb_duties(i)) else
                   '0';
 
-  -- PWM generadores:
-  PWMRED : PWM
-    port map (
-      CLK_I  => CLK_I,
-      DATA_I => red,
-      PWM_O  => pwm_red
-    );
+    DUTY_REGS_P : process (CLK_I) is
+    begin
 
-  PWMGREEN : PWM
-    port map (
-      CLK_I  => CLK_I,
-      DATA_I => green,
-      PWM_O  => pwm_green
-    );
-
-  PWMBLUE : PWM
-    port map (
-      CLK_I  => CLK_I,
-      DATA_I => blue,
-      PWM_O  => pwm_blue
-    );
-
-  SYNC_PROC : process (CLK_I) is
-  begin
-
-    if rising_edge(CLK_I) then
-      if (RSTN_I = '0') then
-        currentstate <= STINICIO;
-      else
-        currentstate <= nextstate;
-      end if;
-    end if;
-
-  end process SYNC_PROC;
-
-  NEXT_STATE_DECODE : process (currentstate, BTNL_I, BTNC_I, BTNR_I, BTND_I) is
-  begin
-
-    nextstate <= currentstate;
-
-    case currentstate is
-
-      when STINICIO =>             -- Estado de inicio donde no pasa nada
-
-        if (BTNL_I = '1') then
-          nextstate <= STRED;      -- si presionamos btnl pasamos a estado donde modificamos la intensidad del rojo
-        elsif (BTNC_I = '1') then
-          nextstate <= STGREEN;    -- si presionamos btnc pasamos a estado donde modificamos la intensidad del verde
-        elsif (BTNR_I = '1') then
-          nextstate <= STBLUE;     -- si presionamos btnr pasamos a estado donde modificamos la intensidad del azul
-        elsif (BTND_I = '1') then
-          nextstate <= STLED12OFF; -- apagamos los leds
-        end if;
-
-      when STRED =>                -- Estado donde modificamos brillo del rojo
-
-        if (BTNC_I = '1') then
-          nextstate <= STGREEN;    -- Pasamos a estado donde modificamos el verde
-        elsif (BTNR_I = '1') then
-          nextstate <= STBLUE;     -- Pasamos a estado donde modifcamos el azul
-        elsif (BTND_I = '1') then
-          nextstate <= STINICIO;   -- Pasamos a inicio
-        end if;
-
-      when STGREEN =>              -- Estado donde modificamos el brillo del verde
-
-        if (BTNL_I = '1') then
-          nextstate <= STRED;      -- Pasamos a estado donde modificamos el rojo
-        elsif (BTNR_I = '1') then
-          nextstate <= STBLUE;     -- Pasamos a estado donde modificamos el azul
-        elsif (BTND_I = '1') then
-          nextstate <= STINICIO;   -- Pasamos a inicio
-        end if;
-
-      when STBLUE =>               -- Estado donde modificamos el brillo del azul
-
-        if (BTNL_I = '1') then
-          nextstate <= STRED;      -- Pasamos a estado donde modificamos el rojo
-        elsif (BTNC_I = '1') then
-          nextstate <= STGREEN;    -- Pasamos a estado donde modificamos el verde
-        elsif (BTND_I = '1') then
-          nextstate <= STINICIO;   -- Pasamos a inicio
-        end if;
-
-      when STLED12OFF =>           -- Apagamos los dos leds
-
-        if (BTND_I = '1') then
-          nextstate <= STINICIO;
-        end if;
-
-      when others =>
-
-        nextstate <= STINICIO;
-
-    end case;
-
-  end process NEXT_STATE_DECODE;
-
-  -- clock prescaler
-  PRESCALLER : process (CLK_I) is
-  begin
-
-    if rising_edge(CLK_I) then
-      if (RSTN_I = '0') then
-        clkcnt <= 0;
-      elsif (clkcnt = clk_div - 1) then
-        clkcnt <= 0;
-      else
-        clkcnt <= clkcnt + 1;
-      end if;
-    end if;
-
-  end process PRESCALLER;
-
-  slowclk <= '1' when clkcnt = clk_div - 1 else
-             '0'; -- 10 Hz que buscamos
-
-  process (CLK_I, BTNU_I, colorcntgreen, colorcntblue, colorcntred) is
-  begin
-
-    if rising_edge(CLK_I) then
-      if (RSTN_I = '0') then
-        colorcntred   <= b"00000";                                                                -- Contador rojo apagado
-        colorcntgreen <= b"00000";                                                                -- Contador verde apagado
-        colorcntblue  <= b"00000";                                                                -- Contador azul apagado
-      elsif (slowclk = '1') then
-        if (BTNU_I = '1') then                                                                    -- Si presionamos el boton btnu aumentamos el brillo
-          if (colorcntred = b"11111" or colorcntgreen = b"11111" or colorcntblue = b"11111") then
-            colorcntred   <= b"11111";                                                            -- En el caso que los contadores estén en  máximo se quedan tal cual
-            colorcntblue  <= b"11111";                                                            -- Cuando funcione esto meto otro botón y toras condiciones para bajar el brillo
-            colorcntgreen <= b"11111";                                                            -- Los contadores empiezan a 0 por lo que no deberia haber problema
-          else
-            if (currentstate = STRED) then                                                        -- cada estado modifica su contador
-              colorcntred <= colorcntred + b"00001";                                              -- se suma 1 (nivel de brillo) al contador cada vez que se pulse el boton
-            elsif (currentstate = STGREEN) then
-              colorcntgreen <= colorcntgreen + b"00001";
-            elsif (currentstate = STBLUE) then
-              colorcntblue <= colorcntblue + b"00001";
-            end if;
+      if rising_edge(CLK_I) then
+        if (RSTN_I = '0') then
+          rgb_duties(i) <= (others => '0');
+        elsif ((cur_state = ST_ADJUST) and (i = cur_channel)) then
+          if (KEYPAD_I(UP_KEY) = '1') then
+            rgb_duties(i) <= rgb_duties(i) + 1;
+          elsif (KEYPAD_I(DOWN_KEY) = '1') then
+            rgb_duties(i) <= rgb_duties(i) - 1;
           end if;
         end if;
       end if;
-    end if;
 
-  end process;
+    end process DUTY_REGS_P;
 
-  process (currentstate, colorcntred, colorcntgreen, colorcntblue) is
+  end generate PWMS;
+
+  CMN_CNTR_P : process (CLK_I) is
   begin
 
-    case currentstate is
+    if rising_edge(CLK_I) then
+      if (RSTN_I = '0') then
+        common_counter <= (others => '0');
+      else
+        common_counter <= common_counter + 1;
+      end if;
+    end if;
 
-      when STINICIO =>
+  end process CMN_CNTR_P;
 
-        STATELEDS(0) <= '1';
-        STATELEDS(1) <= '0';
-        STATELEDS(2) <= '0';
-        STATELEDS(3) <= '0';
+  STATE_REG_P : process (CLK_I) is
+  begin
 
-      when STRED =>
+    if rising_edge(CLK_I) then
+      if (RSTN_I = '0') then
+        cur_state   <= ST_OFF;
+        cur_channel <= chan_id_t'left;
+      else
+        cur_state   <= nxt_state;
+        cur_channel <= nxt_channel;
+      end if;
+    end if;
 
-        red <= b"000" & colorcntred(4 downto 0);
+  end process STATE_REG_P;
 
-        STATELEDS(0) <= '0';
-        STATELEDS(1) <= '1';
-        STATELEDS(2) <= '0';
-        STATELEDS(3) <= '0';
+  with cur_state select STATELEDS <=
+    "001" when ST_OFF,
+    "010" when ST_ON,
+    "100" when ST_ADJUST,
+    "000" when others;
 
-      when STGREEN =>
+  NXT_STATE_DCDR_P : process (cur_state, cur_channel, KEYPAD_I) is
+  begin
 
-        green <= b"000" & colorcntgreen(4 downto 0);
+    nxt_state   <= cur_state;
+    nxt_channel <= cur_channel;
 
-        STATELEDS(2) <= '1';
-        STATELEDS(0) <= '0';
-        STATELEDS(1) <= '0';
-        STATELEDS(3) <= '0';
+    case cur_state is
 
-      when STBLUE =>
+      when ST_OFF =>
 
-        blue <= b"000" & colorcntblue(4 downto 0);
+        if (KEYPAD_I(CENTER_KEY) = '1') then
+          nxt_state <= ST_ADJUST;
+        elsif (KEYPAD_I(UP_KEY) = '1') then
+          nxt_state <= ST_ON;
+        end if;
 
-        STATELEDS(3) <= '1';
-        STATELEDS(0) <= '0';
-        STATELEDS(1) <= '0';
-        STATELEDS(2) <= '0';
+      when ST_ON =>
 
-      when STLED12OFF =>
+        if (KEYPAD_I(CENTER_KEY) = '1') then
+          nxt_state <= ST_ADJUST;
+        elsif (KEYPAD_I(DOWN_KEY) = '1') then
+          nxt_state <= ST_OFF;
+        end if;
 
-        fled2off <= '1';
-        fled1off <= '1';
+      when ST_ADJUST =>
+
+        if (KEYPAD_I(CENTER_KEY) = '1') then
+          nxt_state <= ST_ON;
+        elsif (KEYPAD_I(LEFT_KEY) = '1') then
+          if (cur_channel /= chan_id_t'left) then
+            nxt_channel <= chan_id_t'leftof(cur_channel);
+          else
+            nxt_channel <= chan_id_t'right;
+          end if;
+        elsif (KEYPAD_I(RIGHT_KEY) = '1') then
+          if (cur_channel /= chan_id_t'right) then
+            nxt_channel <= chan_id_t'rightof(cur_channel);
+          else
+            nxt_channel <= chan_id_t'left;
+          end if;
+        end if;
 
       when others =>
 
-        STATELEDS <= (others => '0');
-        fled2off  <= '0';
-        fled1off  <= '0';
+        nxt_state   <= ST_OFF;
+        nxt_channel <= chan_id_t'left;
 
     end case;
 
-  end process;
+  end process NXT_STATE_DCDR_P;
 
 end architecture BEHAVIORAL;

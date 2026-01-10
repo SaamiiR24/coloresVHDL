@@ -1,9 +1,11 @@
 library ieee;
   use ieee.std_logic_1164.all;
-  use ieee.std_logic_arith.all;
-  use ieee.std_logic_signed.all;
 
 entity SYNCHRONIZER is
+  generic (
+    QUIESCENT_VALUE : std_logic;
+    SYNC_STAGES     : positive
+  );
   port (
     CLK      : in    std_logic;
     ASYNC_IN : in    std_logic;
@@ -13,18 +15,22 @@ end entity SYNCHRONIZER;
 
 architecture BEHAVIORAL of SYNCHRONIZER is
 
-  signal sreg : std_logic_vector(1 downto 0);
+  attribute async_reg : string;
+
+  signal sreg : std_logic_vector(SYNC_STAGES - 1 downto 0) := (others => QUIESCENT_VALUE);
+  attribute async_reg of sreg : signal is "true";
 
 begin
 
-  process (CLK) is
+  SYNC_OUT <= sreg(sreg'left);
+
+  SR_P : process (CLK) is
   begin
 
     if rising_edge(CLK) then
-      SYNC_OUT <= sreg(1);
-      sreg     <= sreg(0) & ASYNC_IN;
+      sreg <= sreg(SYNC_STAGES - 2 downto 0) & ASYNC_IN;
     end if;
 
-  end process;
+  end process SR_P;
 
 end architecture BEHAVIORAL;
