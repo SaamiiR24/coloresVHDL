@@ -16,7 +16,7 @@ package rgb2_common is
 
   type rgbled_t is array(chan_id_t) of std_logic;
 
-  subtype rgb_duty_t is unsigned(7 downto 0);
+  subtype rgb_duty_t is unsigned(pwm_resol - 1 downto 0);
 
   type rgb_duty_vector_t is array(chan_id_t) of rgb_duty_t;
 
