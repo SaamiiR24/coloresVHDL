@@ -1,0 +1,94 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Fri Jan 16 13:45:11 2026
+| Host         : LAPTOP-JIVQAT26 running 64-bit major release  (build 9200)
+| Command      : report_drc -file top_drc_opted.rpt -pb top_drc_opted.pb -rpx top_drc_opted.rpx
+| Design       : top
+| Device       : xc7a100tcsg324-1
+| Speed File   : -1
+| Design State : Synthesized
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Report DRC
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+           Ruledeck: default
+             Max checks: <unlimited>
+             Checks found: 6
++-------------+----------+-------------------------------------------------------------+--------+
+| Rule        | Severity | Description                                                 | Checks |
++-------------+----------+-------------------------------------------------------------+--------+
+| CFGBVS-1    | Warning  | Missing CFGBVS and CONFIG_VOLTAGE Design Properties         | 1      |
+| PLHOLDVIO-2 | Warning  | Non-Optimal connections which could lead to hold violations | 5      |
++-------------+----------+-------------------------------------------------------------+--------+
+
+2. REPORT DETAILS
+-----------------
+CFGBVS-1#1 Warning
+Missing CFGBVS and CONFIG_VOLTAGE Design Properties  
+Neither the CFGBVS nor CONFIG_VOLTAGE voltage property is set in the current_design.  Configuration bank voltage select (CFGBVS) must be set to VCCO or GND, and CONFIG_VOLTAGE must be set to the correct configuration voltage, in order to determine the I/O voltage support for the pins in bank 0.  It is suggested to specify these either using the 'Edit Device Properties' function in the GUI or directly in the XDC file using the following syntax:
+
+ set_property CFGBVS value1 [current_design]
+ #where value1 is either VCCO or GND
+
+ set_property CONFIG_VOLTAGE value2 [current_design]
+ #where value2 is the voltage provided to configuration bank 0
+
+Refer to the device configuration user guide for more information.
+Related violations: <none>
+
+PLHOLDVIO-2#1 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Inst_RgbLed/Cnt/Pres/cnt[7]_i_3 is driving clock pin of 8 cells. This could lead to large hold time violations. Involved cells are:
+Inst_RgbLed/Cnt/cnt_reg[0], Inst_RgbLed/Cnt/cnt_reg[1],
+Inst_RgbLed/Cnt/cnt_reg[2], Inst_RgbLed/Cnt/cnt_reg[3],
+Inst_RgbLed/Cnt/cnt_reg[4], Inst_RgbLed/Cnt/cnt_reg[5],
+Inst_RgbLed/Cnt/cnt_reg[6], Inst_RgbLed/Cnt/cnt_reg[7]
+Related violations: <none>
+
+PLHOLDVIO-2#2 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Inst_RgbLed/Pres/FSM_sequential_currentState[2]_i_2 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Inst_RgbLed/FSM_sequential_currentState_reg[0],
+Inst_RgbLed/FSM_sequential_currentState_reg[1]
+Inst_RgbLed/FSM_sequential_currentState_reg[2]
+Related violations: <none>
+
+PLHOLDVIO-2#3 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Inst_RgbLed/PwmBlue/Pres/cnt[7]_i_3__2 is driving clock pin of 8 cells. This could lead to large hold time violations. Involved cells are:
+Inst_RgbLed/PwmBlue/cnt_reg[0], Inst_RgbLed/PwmBlue/cnt_reg[1],
+Inst_RgbLed/PwmBlue/cnt_reg[2], Inst_RgbLed/PwmBlue/cnt_reg[3],
+Inst_RgbLed/PwmBlue/cnt_reg[4], Inst_RgbLed/PwmBlue/cnt_reg[5],
+Inst_RgbLed/PwmBlue/cnt_reg[6], Inst_RgbLed/PwmBlue/cnt_reg[7]
+Related violations: <none>
+
+PLHOLDVIO-2#4 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Inst_RgbLed/PwmGreen/Pres/cnt[7]_i_3__1 is driving clock pin of 8 cells. This could lead to large hold time violations. Involved cells are:
+Inst_RgbLed/PwmGreen/cnt_reg[0], Inst_RgbLed/PwmGreen/cnt_reg[1],
+Inst_RgbLed/PwmGreen/cnt_reg[2], Inst_RgbLed/PwmGreen/cnt_reg[3],
+Inst_RgbLed/PwmGreen/cnt_reg[4], Inst_RgbLed/PwmGreen/cnt_reg[5],
+Inst_RgbLed/PwmGreen/cnt_reg[6], Inst_RgbLed/PwmGreen/cnt_reg[7]
+Related violations: <none>
+
+PLHOLDVIO-2#5 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Inst_RgbLed/PwmRed/Pres/cnt[7]_i_3__0 is driving clock pin of 8 cells. This could lead to large hold time violations. Involved cells are:
+Inst_RgbLed/PwmRed/cnt_reg[0], Inst_RgbLed/PwmRed/cnt_reg[1],
+Inst_RgbLed/PwmRed/cnt_reg[2], Inst_RgbLed/PwmRed/cnt_reg[3],
+Inst_RgbLed/PwmRed/cnt_reg[4], Inst_RgbLed/PwmRed/cnt_reg[5],
+Inst_RgbLed/PwmRed/cnt_reg[6], Inst_RgbLed/PwmRed/cnt_reg[7]
+Related violations: <none>
+
+

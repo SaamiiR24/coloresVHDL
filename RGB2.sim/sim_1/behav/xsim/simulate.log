@@ -1,0 +1,6 @@
+Time resolution is 1 ps
+Error: Assertion violation
+Time: 380 ns  Iteration: 0  Process: /RgbLed_tb/p2  File: C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sim_1/new/RgbLed_tb.vhd
+Failure: [PASED]: Simulation finished
+Time: 380 ns  Iteration: 0  Process: /RgbLed_tb/p2  File: C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sim_1/new/RgbLed_tb.vhd
+$finish called at time : 380 ns : File "C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sim_1/new/RgbLed_tb.vhd" Line 146

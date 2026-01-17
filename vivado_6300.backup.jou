@@ -1,0 +1,59 @@
+#-----------------------------------------------------------
+# Vivado v2025.1 (64-bit)
+# SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
+# IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
+# SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
+# Start of session at: Fri Jan 16 10:10:07 2026
+# Process ID         : 6300
+# Current directory  : C:/Users/jacob/Downloads/JaCRGB2 - prueba4final
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent29736 C:\Users\jacob\Downloads\JaCRGB2 - prueba4final\RGB2.xpr
+# Log file           : C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/vivado.log
+# Journal file       : C:/Users/jacob/Downloads/JaCRGB2 - prueba4final\vivado.jou
+# Running On         : LAPTOP-JIVQAT26
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26100
+# Processor Detail   : Intel(R) Core(TM) i7-10870H CPU @ 2.20GHz
+# CPU Frequency      : 2208 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 17007 MB
+# Swap memory        : 4831 MB
+# Total Virtual      : 21839 MB
+# Available Virtual  : 8782 MB
+#-----------------------------------------------------------
+start_gui
+open_project {C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.xpr}
+update_compile_order -fileset sources_1
+launch_simulation
+source Counter_tb.tcl
+close_sim
+launch_simulation
+source Counter_tb.tcl
+close_sim
+launch_simulation
+source Counter_tb.tcl
+close_sim
+launch_simulation
+source Counter_tb.tcl
+close_sim
+launch_simulation
+source Counter_tb.tcl
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top Counter [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+synth_design -top Counter -part xc7a100tcsg324-1 -lint 
+synth_design -rtl -rtl_skip_mlo -name rtl_1
+update_compile_order -fileset sources_1
+close_sim
+launch_simulation
+source Counter_tb.tcl
+close_sim
+launch_simulation
+source Counter_tb.tcl
+close_sim
+launch_simulation
+source Counter_tb.tcl
+close_sim

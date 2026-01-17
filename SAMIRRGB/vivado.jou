@@ -1,0 +1,29 @@
+#-----------------------------------------------------------
+# Vivado v2025.1 (64-bit)
+# SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
+# IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
+# SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
+# Start of session at: Mon Dec 15 15:08:09 2025
+# Process ID         : 34976
+# Current directory  : C:/Users/jacob/Downloads/JaCRGB2 - prueba1/SAMIRRGB
+# Command line       : vivado.exe -gui_launcher_event rodinguilauncherevent24388 C:\Users\jacob\Downloads\JaCRGB2 - prueba1\SAMIRRGB\SAMIRRGB.xpr
+# Log file           : C:/Users/jacob/Downloads/JaCRGB2 - prueba1/SAMIRRGB/vivado.log
+# Journal file       : C:/Users/jacob/Downloads/JaCRGB2 - prueba1/SAMIRRGB\vivado.jou
+# Running On         : LAPTOP-JIVQAT26
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26100
+# Processor Detail   : Intel(R) Core(TM) i7-10870H CPU @ 2.20GHz
+# CPU Frequency      : 2208 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 17007 MB
+# Swap memory        : 4563 MB
+# Total Virtual      : 21570 MB
+# Available Virtual  : 5287 MB
+#-----------------------------------------------------------
+start_gui
+open_project {C:/Users/jacob/Downloads/JaCRGB2 - prueba1/SAMIRRGB/SAMIRRGB.xpr}
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 16
+wait_on_run impl_1

@@ -1,0 +1,10 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../RGB2.srcs/sources_1/new/Counter.vhd" \
+"../../../../RGB2.srcs/sources_1/new/Prescaller.vhd" \
+"../../../../RGB2.srcs/sources_1/new/RGBLED.vhd" \
+"../../../../RGB2.srcs/sources_1/new/pwm.vhd" \
+"../../../../RGB2.srcs/sim_1/new/RgbLed_tb.vhd" \
+
+# Do not sort compile order
+nosort
