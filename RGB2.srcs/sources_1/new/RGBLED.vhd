@@ -88,15 +88,6 @@ signal currentState, nextState : state_type;
 
 begin
    
-   -- Asignamos salidas
-   pwm1_red_o     <= pwm_red when fLed1Off = '0' else '0';
-   pwm1_green_o   <= pwm_green when fLed1Off = '0' else '0';
-   pwm1_blue_o    <= pwm_blue when fLed1Off = '0' else '0';
-   
-   pwm2_red_o     <= pwm_red when fLed2Off = '0' else '0';
-   pwm2_green_o   <= pwm_green when fLed2Off = '0' else '0';
-   pwm2_blue_o    <= pwm_blue when fLed2Off = '0' else '0';
-   
     Pres: Prescaller
     port map(
      clk_i => clk_i,
@@ -279,4 +270,14 @@ begin
   
        end case;
    end process;
+   
+   -- Asignamos salidas
+   pwm1_red_o     <= pwm_red when fLed1Off = '0' else '0';
+   pwm1_green_o   <= pwm_green when fLed1Off = '0' else '0';
+   pwm1_blue_o    <= pwm_blue when fLed1Off = '0' else '0';
+   
+   pwm2_red_o     <= pwm_red when fLed2Off = '0' else '0';
+   pwm2_green_o   <= pwm_green when fLed2Off = '0' else '0';
+   pwm2_blue_o    <= pwm_blue when fLed2Off = '0' else '0';
+   
 end Behavioral;

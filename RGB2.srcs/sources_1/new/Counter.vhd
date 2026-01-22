@@ -43,13 +43,13 @@ begin
       
     elsif btnup = '1' then 
       if cnt < 251 then --llega hasta el 255 
-          cnt <= cnt + 5;
+          cnt <= cnt + 5; -- MODIFICAMOS
       else 
           cnt <= cnt;
       end if;
     elsif btndown = '1' then 
       if cnt > 4 then -- llega hasta el cero
-          cnt <= cnt - 5;
+          cnt <= cnt - 5; -- MODIFICAMOS
       else 
           cnt <= cnt;
       end if;
@@ -60,6 +60,12 @@ end process;
 colorcnt <= std_logic_vector(cnt);
 end behavioral; 
 
-      
-
+-- Counter es el componente encargado de modificar el ciclo de trabajo. A través
+-- de los botones "btnup" y "btndown" somos capaces de modificar la salide "colorcnt".
+-- Esta salida es posteriormente "data_i" (ciclo de trabajo). Es decir gracias a este
+-- componente somos capaces de modificar el ciclo de trabajo de los leds con los botones
+-- y relacionarlo con el componente pwm para generar el brillo deseado en los leds.
+-- El rango del pwm abarcar desde el 0 hasta el 255. cada vez que se pulsan los botnones
+-- sumamos o restamos 5, por lo que podemos generar 51 niveles de brillos diferentes. 
+-- desde 0 (apagado) hasta 255 (máximo ciclo de trabajo / máximo brillo)
 

@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Fri Jan 16 13:45:49 2026
+| Date         : Sun Jan 18 14:41:32 2026
 | Host         : LAPTOP-JIVQAT26 running 64-bit major release  (build 9200)
 | Command      : report_drc -file top_drc_routed.rpt -pb top_drc_routed.pb -rpx top_drc_routed.rpx
 | Design       : top
@@ -24,13 +24,13 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max checks: <unlimited>
-             Checks found: 18
+             Checks found: 38
 +-------------+----------+-------------------------------------------------------------+--------+
 | Rule        | Severity | Description                                                 | Checks |
 +-------------+----------+-------------------------------------------------------------+--------+
 | CFGBVS-1    | Warning  | Missing CFGBVS and CONFIG_VOLTAGE Design Properties         | 1      |
-| PDRC-153    | Warning  | Gated clock check                                           | 12     |
-| PLHOLDVIO-2 | Warning  | Non-Optimal connections which could lead to hold violations | 5      |
+| PDRC-153    | Warning  | Gated clock check                                           | 22     |
+| PLHOLDVIO-2 | Warning  | Non-Optimal connections which could lead to hold violations | 15     |
 +-------------+----------+-------------------------------------------------------------+--------+
 
 2. REPORT DETAILS
@@ -50,65 +50,150 @@ Related violations: <none>
 
 PDRC-153#1 Warning
 Gated clock check  
-Net Inst_RgbLed/Cnt/Pres/CLK is a gated clock net sourced by a combinational pin Inst_RgbLed/Cnt/Pres/cnt[7]_i_3/O, cell Inst_RgbLed/Cnt/Pres/cnt[7]_i_3. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net Ins_EDGEDTCTR1/Pres/CLK is a gated clock net sourced by a combinational pin Ins_EDGEDTCTR1/Pres/sreg[2]_i_1/O, cell Ins_EDGEDTCTR1/Pres/sreg[2]_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#2 Warning
 Gated clock check  
-Net Inst_RgbLed/LED_OBUF[0] is a gated clock net sourced by a combinational pin Inst_RgbLed/LED_OBUF[0]_inst_i_1/O, cell Inst_RgbLed/LED_OBUF[0]_inst_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net Ins_EDGEDTCTR2/Pres/CLK is a gated clock net sourced by a combinational pin Ins_EDGEDTCTR2/Pres/sreg[2]_i_1__0/O, cell Ins_EDGEDTCTR2/Pres/sreg[2]_i_1__0. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#3 Warning
 Gated clock check  
-Net Inst_RgbLed/LED_OBUF[1] is a gated clock net sourced by a combinational pin Inst_RgbLed/LED_OBUF[1]_inst_i_1/O, cell Inst_RgbLed/LED_OBUF[1]_inst_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net Ins_EDGEDTCTR3/Pres/CLK is a gated clock net sourced by a combinational pin Ins_EDGEDTCTR3/Pres/sreg[2]_i_1__1/O, cell Ins_EDGEDTCTR3/Pres/sreg[2]_i_1__1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#4 Warning
 Gated clock check  
-Net Inst_RgbLed/LED_OBUF[2] is a gated clock net sourced by a combinational pin Inst_RgbLed/LED_OBUF[2]_inst_i_1/O, cell Inst_RgbLed/LED_OBUF[2]_inst_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net Ins_EDGEDTCTR4/Pres/CLK is a gated clock net sourced by a combinational pin Ins_EDGEDTCTR4/Pres/sreg[2]_i_1__2/O, cell Ins_EDGEDTCTR4/Pres/sreg[2]_i_1__2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#5 Warning
 Gated clock check  
-Net Inst_RgbLed/LED_OBUF[3] is a gated clock net sourced by a combinational pin Inst_RgbLed/LED_OBUF[3]_inst_i_1/O, cell Inst_RgbLed/LED_OBUF[3]_inst_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net Ins_EDGEDTCTR5/Pres/CLK is a gated clock net sourced by a combinational pin Ins_EDGEDTCTR5/Pres/sreg[2]_i_1__3/O, cell Ins_EDGEDTCTR5/Pres/sreg[2]_i_1__3. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#6 Warning
 Gated clock check  
-Net Inst_RgbLed/Pres/slowclk_out is a gated clock net sourced by a combinational pin Inst_RgbLed/Pres/FSM_sequential_currentState[2]_i_2/O, cell Inst_RgbLed/Pres/FSM_sequential_currentState[2]_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net Inst_RgbLed/Cnt/Pres/CLK is a gated clock net sourced by a combinational pin Inst_RgbLed/Cnt/Pres/cnt[7]_i_3/O, cell Inst_RgbLed/Cnt/Pres/cnt[7]_i_3. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#7 Warning
 Gated clock check  
-Net Inst_RgbLed/PwmBlue/Pres/CLK is a gated clock net sourced by a combinational pin Inst_RgbLed/PwmBlue/Pres/cnt[7]_i_3__2/O, cell Inst_RgbLed/PwmBlue/Pres/cnt[7]_i_3__2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net Inst_RgbLed/LED_OBUF[0] is a gated clock net sourced by a combinational pin Inst_RgbLed/LED_OBUF[0]_inst_i_1/O, cell Inst_RgbLed/LED_OBUF[0]_inst_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#8 Warning
 Gated clock check  
-Net Inst_RgbLed/PwmGreen/Pres/CLK is a gated clock net sourced by a combinational pin Inst_RgbLed/PwmGreen/Pres/cnt[7]_i_3__1/O, cell Inst_RgbLed/PwmGreen/Pres/cnt[7]_i_3__1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net Inst_RgbLed/LED_OBUF[1] is a gated clock net sourced by a combinational pin Inst_RgbLed/LED_OBUF[1]_inst_i_1/O, cell Inst_RgbLed/LED_OBUF[1]_inst_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#9 Warning
 Gated clock check  
-Net Inst_RgbLed/PwmRed/Pres/CLK is a gated clock net sourced by a combinational pin Inst_RgbLed/PwmRed/Pres/cnt[7]_i_3__0/O, cell Inst_RgbLed/PwmRed/Pres/cnt[7]_i_3__0. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net Inst_RgbLed/LED_OBUF[2] is a gated clock net sourced by a combinational pin Inst_RgbLed/LED_OBUF[2]_inst_i_1/O, cell Inst_RgbLed/LED_OBUF[2]_inst_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#10 Warning
 Gated clock check  
-Net Inst_RgbLed/colorcntblue__0 is a gated clock net sourced by a combinational pin Inst_RgbLed/colorcntblue_reg[7]_i_2/O, cell Inst_RgbLed/colorcntblue_reg[7]_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net Inst_RgbLed/LED_OBUF[3] is a gated clock net sourced by a combinational pin Inst_RgbLed/LED_OBUF[3]_inst_i_1/O, cell Inst_RgbLed/LED_OBUF[3]_inst_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#11 Warning
 Gated clock check  
-Net Inst_RgbLed/colorcntgreen__0 is a gated clock net sourced by a combinational pin Inst_RgbLed/colorcntgreen_reg[7]_i_2/O, cell Inst_RgbLed/colorcntgreen_reg[7]_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net Inst_RgbLed/Pres/slowclk_out is a gated clock net sourced by a combinational pin Inst_RgbLed/Pres/FSM_sequential_currentState[2]_i_2/O, cell Inst_RgbLed/Pres/FSM_sequential_currentState[2]_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PDRC-153#12 Warning
 Gated clock check  
-Net Inst_RgbLed/colorcntred__0 is a gated clock net sourced by a combinational pin Inst_RgbLed/colorcntred_reg[7]_i_1/O, cell Inst_RgbLed/colorcntred_reg[7]_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Net Inst_RgbLed/PwmBlue/Pres/CLK is a gated clock net sourced by a combinational pin Inst_RgbLed/PwmBlue/Pres/cnt[7]_i_3__2/O, cell Inst_RgbLed/PwmBlue/Pres/cnt[7]_i_3__2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#13 Warning
+Gated clock check  
+Net Inst_RgbLed/PwmGreen/Pres/CLK is a gated clock net sourced by a combinational pin Inst_RgbLed/PwmGreen/Pres/cnt[7]_i_3__1/O, cell Inst_RgbLed/PwmGreen/Pres/cnt[7]_i_3__1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#14 Warning
+Gated clock check  
+Net Inst_RgbLed/PwmRed/Pres/CLK is a gated clock net sourced by a combinational pin Inst_RgbLed/PwmRed/Pres/cnt[7]_i_3__0/O, cell Inst_RgbLed/PwmRed/Pres/cnt[7]_i_3__0. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#15 Warning
+Gated clock check  
+Net Inst_RgbLed/colorcntblue__0 is a gated clock net sourced by a combinational pin Inst_RgbLed/colorcntblue_reg[7]_i_1/O, cell Inst_RgbLed/colorcntblue_reg[7]_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#16 Warning
+Gated clock check  
+Net Inst_RgbLed/colorcntgreen__0 is a gated clock net sourced by a combinational pin Inst_RgbLed/colorcntgreen_reg[7]_i_1/O, cell Inst_RgbLed/colorcntgreen_reg[7]_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#17 Warning
+Gated clock check  
+Net Inst_RgbLed/colorcntred__0 is a gated clock net sourced by a combinational pin Inst_RgbLed/colorcntred_reg[7]_i_2/O, cell Inst_RgbLed/colorcntred_reg[7]_i_2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#18 Warning
+Gated clock check  
+Net Inst_SYNCHRNZR1/Pres/CLK is a gated clock net sourced by a combinational pin Inst_SYNCHRNZR1/Pres/sreg[1]_i_1/O, cell Inst_SYNCHRNZR1/Pres/sreg[1]_i_1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#19 Warning
+Gated clock check  
+Net Inst_SYNCHRNZR2/Pres/CLK is a gated clock net sourced by a combinational pin Inst_SYNCHRNZR2/Pres/sreg[1]_i_1__0/O, cell Inst_SYNCHRNZR2/Pres/sreg[1]_i_1__0. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#20 Warning
+Gated clock check  
+Net Inst_SYNCHRNZR3/Pres/CLK is a gated clock net sourced by a combinational pin Inst_SYNCHRNZR3/Pres/sreg[1]_i_1__1/O, cell Inst_SYNCHRNZR3/Pres/sreg[1]_i_1__1. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#21 Warning
+Gated clock check  
+Net Inst_SYNCHRNZR4/Pres/CLK is a gated clock net sourced by a combinational pin Inst_SYNCHRNZR4/Pres/sreg[1]_i_1__2/O, cell Inst_SYNCHRNZR4/Pres/sreg[1]_i_1__2. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
+Related violations: <none>
+
+PDRC-153#22 Warning
+Gated clock check  
+Net Inst_SYNCHRNZR5/Pres/CLK is a gated clock net sourced by a combinational pin Inst_SYNCHRNZR5/Pres/sreg[1]_i_1__3/O, cell Inst_SYNCHRNZR5/Pres/sreg[1]_i_1__3. This is not good design practice and will likely impact performance. For SLICE registers, for example, use the CE pin to control the loading of data.
 Related violations: <none>
 
 PLHOLDVIO-2#1 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Ins_EDGEDTCTR1/Pres/sreg[2]_i_1 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Ins_EDGEDTCTR1/sreg_reg[0], Ins_EDGEDTCTR1/sreg_reg[1]
+Ins_EDGEDTCTR1/sreg_reg[2]
+Related violations: <none>
+
+PLHOLDVIO-2#2 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Ins_EDGEDTCTR2/Pres/sreg[2]_i_1__0 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Ins_EDGEDTCTR2/sreg_reg[0], Ins_EDGEDTCTR2/sreg_reg[1]
+Ins_EDGEDTCTR2/sreg_reg[2]
+Related violations: <none>
+
+PLHOLDVIO-2#3 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Ins_EDGEDTCTR3/Pres/sreg[2]_i_1__1 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Ins_EDGEDTCTR3/sreg_reg[0], Ins_EDGEDTCTR3/sreg_reg[1]
+Ins_EDGEDTCTR3/sreg_reg[2]
+Related violations: <none>
+
+PLHOLDVIO-2#4 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Ins_EDGEDTCTR4/Pres/sreg[2]_i_1__2 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Ins_EDGEDTCTR4/sreg_reg[0], Ins_EDGEDTCTR4/sreg_reg[1]
+Ins_EDGEDTCTR4/sreg_reg[2]
+Related violations: <none>
+
+PLHOLDVIO-2#5 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Ins_EDGEDTCTR5/Pres/sreg[2]_i_1__3 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Ins_EDGEDTCTR5/sreg_reg[0], Ins_EDGEDTCTR5/sreg_reg[1]
+Ins_EDGEDTCTR5/sreg_reg[2]
+Related violations: <none>
+
+PLHOLDVIO-2#6 Warning
 Non-Optimal connections which could lead to hold violations  
 A LUT Inst_RgbLed/Cnt/Pres/cnt[7]_i_3 is driving clock pin of 8 cells. This could lead to large hold time violations. Involved cells are:
 Inst_RgbLed/Cnt/cnt_reg[0], Inst_RgbLed/Cnt/cnt_reg[1],
@@ -117,7 +202,7 @@ Inst_RgbLed/Cnt/cnt_reg[4], Inst_RgbLed/Cnt/cnt_reg[5],
 Inst_RgbLed/Cnt/cnt_reg[6], Inst_RgbLed/Cnt/cnt_reg[7]
 Related violations: <none>
 
-PLHOLDVIO-2#2 Warning
+PLHOLDVIO-2#7 Warning
 Non-Optimal connections which could lead to hold violations  
 A LUT Inst_RgbLed/Pres/FSM_sequential_currentState[2]_i_2 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
 Inst_RgbLed/FSM_sequential_currentState_reg[0],
@@ -125,7 +210,7 @@ Inst_RgbLed/FSM_sequential_currentState_reg[1]
 Inst_RgbLed/FSM_sequential_currentState_reg[2]
 Related violations: <none>
 
-PLHOLDVIO-2#3 Warning
+PLHOLDVIO-2#8 Warning
 Non-Optimal connections which could lead to hold violations  
 A LUT Inst_RgbLed/PwmBlue/Pres/cnt[7]_i_3__2 is driving clock pin of 8 cells. This could lead to large hold time violations. Involved cells are:
 Inst_RgbLed/PwmBlue/cnt_reg[0], Inst_RgbLed/PwmBlue/cnt_reg[1],
@@ -134,7 +219,7 @@ Inst_RgbLed/PwmBlue/cnt_reg[4], Inst_RgbLed/PwmBlue/cnt_reg[5],
 Inst_RgbLed/PwmBlue/cnt_reg[6], Inst_RgbLed/PwmBlue/cnt_reg[7]
 Related violations: <none>
 
-PLHOLDVIO-2#4 Warning
+PLHOLDVIO-2#9 Warning
 Non-Optimal connections which could lead to hold violations  
 A LUT Inst_RgbLed/PwmGreen/Pres/cnt[7]_i_3__1 is driving clock pin of 8 cells. This could lead to large hold time violations. Involved cells are:
 Inst_RgbLed/PwmGreen/cnt_reg[0], Inst_RgbLed/PwmGreen/cnt_reg[1],
@@ -143,13 +228,48 @@ Inst_RgbLed/PwmGreen/cnt_reg[4], Inst_RgbLed/PwmGreen/cnt_reg[5],
 Inst_RgbLed/PwmGreen/cnt_reg[6], Inst_RgbLed/PwmGreen/cnt_reg[7]
 Related violations: <none>
 
-PLHOLDVIO-2#5 Warning
+PLHOLDVIO-2#10 Warning
 Non-Optimal connections which could lead to hold violations  
 A LUT Inst_RgbLed/PwmRed/Pres/cnt[7]_i_3__0 is driving clock pin of 8 cells. This could lead to large hold time violations. Involved cells are:
 Inst_RgbLed/PwmRed/cnt_reg[0], Inst_RgbLed/PwmRed/cnt_reg[1],
 Inst_RgbLed/PwmRed/cnt_reg[2], Inst_RgbLed/PwmRed/cnt_reg[3],
 Inst_RgbLed/PwmRed/cnt_reg[4], Inst_RgbLed/PwmRed/cnt_reg[5],
 Inst_RgbLed/PwmRed/cnt_reg[6], Inst_RgbLed/PwmRed/cnt_reg[7]
+Related violations: <none>
+
+PLHOLDVIO-2#11 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Inst_SYNCHRNZR1/Pres/sreg[1]_i_1 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Inst_SYNCHRNZR1/SYNC_OUT_reg, Inst_SYNCHRNZR1/sreg_reg[0]
+Inst_SYNCHRNZR1/sreg_reg[1]
+Related violations: <none>
+
+PLHOLDVIO-2#12 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Inst_SYNCHRNZR2/Pres/sreg[1]_i_1__0 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Inst_SYNCHRNZR2/SYNC_OUT_reg, Inst_SYNCHRNZR2/sreg_reg[0]
+Inst_SYNCHRNZR2/sreg_reg[1]
+Related violations: <none>
+
+PLHOLDVIO-2#13 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Inst_SYNCHRNZR3/Pres/sreg[1]_i_1__1 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Inst_SYNCHRNZR3/SYNC_OUT_reg, Inst_SYNCHRNZR3/sreg_reg[0]
+Inst_SYNCHRNZR3/sreg_reg[1]
+Related violations: <none>
+
+PLHOLDVIO-2#14 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Inst_SYNCHRNZR4/Pres/sreg[1]_i_1__2 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Inst_SYNCHRNZR4/SYNC_OUT_reg, Inst_SYNCHRNZR4/sreg_reg[0]
+Inst_SYNCHRNZR4/sreg_reg[1]
+Related violations: <none>
+
+PLHOLDVIO-2#15 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Inst_SYNCHRNZR5/Pres/sreg[1]_i_1__3 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Inst_SYNCHRNZR5/SYNC_OUT_reg, Inst_SYNCHRNZR5/sreg_reg[0]
+Inst_SYNCHRNZR5/sreg_reg[1]
 Related violations: <none>
 
 

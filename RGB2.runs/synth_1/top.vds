@@ -3,8 +3,8 @@
 # SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
 # IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
 # SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-# Start of session at: Fri Jan 16 13:43:49 2026
-# Process ID         : 13544
+# Start of session at: Sun Jan 18 14:39:06 2026
+# Process ID         : 37780
 # Current directory  : C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.runs/synth_1
 # Command line       : vivado.exe -log top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
 # Log file           : C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.runs/synth_1/top.vds
@@ -19,10 +19,10 @@
 # Host memory        : 17007 MB
 # Swap memory        : 4831 MB
 # Total Virtual      : 21839 MB
-# Available Virtual  : 6195 MB
+# Available Virtual  : 7480 MB
 #-----------------------------------------------------------
 source top.tcl -notrace
-create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 493.750 ; gain = 212.273
+create_project: Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 492.688 ; gain = 212.551
 Command: read_checkpoint -auto_incremental -incremental {C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/utils_1/imports/synth_1/RgbLed.dcp}
 INFO: [Vivado 12-5825] Read reference checkpoint from C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/utils_1/imports/synth_1/RgbLed.dcp for incremental synthesis
 INFO: [Vivado 12-7989] Please ensure there are no constraint changes
@@ -35,62 +35,64 @@ INFO: [Designutils 20-5440] No compile time benefit to using incremental synthes
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 3936
+INFO: [Synth 8-7075] Helper process launched with PID 7164
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1198.117 ; gain = 494.254
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1200.391 ; gain = 494.773
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'top' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:27]
-INFO: [Synth 8-3491] module 'RgbLed' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:6' bound to instance 'Inst_RgbLed' of component 'RgbLed' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:85]
+INFO: [Synth 8-3491] module 'RgbLed' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:6' bound to instance 'Inst_RgbLed' of component 'RgbLed' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:87]
 INFO: [Synth 8-638] synthesizing module 'RgbLed' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:34]
-INFO: [Synth 8-3491] module 'Prescaller' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/Prescaller.vhd:6' bound to instance 'Pres' of component 'Prescaller' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:99]
+INFO: [Synth 8-3491] module 'Prescaller' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/Prescaller.vhd:6' bound to instance 'Pres' of component 'Prescaller' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:100]
 INFO: [Synth 8-638] synthesizing module 'Prescaller' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/Prescaller.vhd:14]
 INFO: [Synth 8-256] done synthesizing module 'Prescaller' (0#1) [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/Prescaller.vhd:14]
-INFO: [Synth 8-3491] module 'Counter' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/Counter.vhd:6' bound to instance 'Cnt' of component 'Counter' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:105]
+INFO: [Synth 8-3491] module 'Counter' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/Counter.vhd:6' bound to instance 'Cnt' of component 'Counter' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:106]
 INFO: [Synth 8-638] synthesizing module 'Counter' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/Counter.vhd:16]
 INFO: [Synth 8-3491] module 'Prescaller' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/Prescaller.vhd:6' bound to instance 'Pres' of component 'Prescaller' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/Counter.vhd:31]
 INFO: [Synth 8-256] done synthesizing module 'Counter' (0#1) [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/Counter.vhd:16]
-INFO: [Synth 8-3491] module 'pwm' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/pwm.vhd:7' bound to instance 'PwmRed' of component 'Pwm' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:114]
+INFO: [Synth 8-3491] module 'pwm' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/pwm.vhd:7' bound to instance 'PwmRed' of component 'Pwm' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:115]
 INFO: [Synth 8-638] synthesizing module 'pwm' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/pwm.vhd:20]
 INFO: [Synth 8-3491] module 'Prescaller' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/Prescaller.vhd:6' bound to instance 'Pres' of component 'Prescaller' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/pwm.vhd:34]
 INFO: [Synth 8-256] done synthesizing module 'pwm' (0#1) [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/pwm.vhd:20]
-INFO: [Synth 8-3491] module 'pwm' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/pwm.vhd:7' bound to instance 'PwmGreen' of component 'Pwm' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:121]
-INFO: [Synth 8-3491] module 'pwm' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/pwm.vhd:7' bound to instance 'PwmBlue' of component 'Pwm' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:128]
-WARNING: [Synth 8-614] signal 'colorcnttotal' is read in the process but is not in the sensitivity list [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:199]
-WARNING: [Synth 8-614] signal 'colorcntgreen' is read in the process but is not in the sensitivity list [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:199]
-WARNING: [Synth 8-614] signal 'colorcntblue' is read in the process but is not in the sensitivity list [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:199]
-WARNING: [Synth 8-614] signal 'colorcntred' is read in the process but is not in the sensitivity list [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:199]
-WARNING: [Synth 8-614] signal 'colorcntred' is read in the process but is not in the sensitivity list [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:230]
-WARNING: [Synth 8-614] signal 'colorcntgreen' is read in the process but is not in the sensitivity list [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:230]
-WARNING: [Synth 8-614] signal 'colorcntblue' is read in the process but is not in the sensitivity list [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:230]
+INFO: [Synth 8-3491] module 'pwm' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/pwm.vhd:7' bound to instance 'PwmGreen' of component 'Pwm' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:122]
+INFO: [Synth 8-3491] module 'pwm' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/pwm.vhd:7' bound to instance 'PwmBlue' of component 'Pwm' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:129]
+WARNING: [Synth 8-614] signal 'colorcnttotal' is read in the process but is not in the sensitivity list [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:200]
+WARNING: [Synth 8-614] signal 'colorcntgreen' is read in the process but is not in the sensitivity list [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:200]
+WARNING: [Synth 8-614] signal 'colorcntblue' is read in the process but is not in the sensitivity list [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:200]
+WARNING: [Synth 8-614] signal 'colorcntred' is read in the process but is not in the sensitivity list [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:200]
+WARNING: [Synth 8-614] signal 'colorcntred' is read in the process but is not in the sensitivity list [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:232]
+WARNING: [Synth 8-614] signal 'colorcntgreen' is read in the process but is not in the sensitivity list [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:232]
+WARNING: [Synth 8-614] signal 'colorcntblue' is read in the process but is not in the sensitivity list [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:232]
 INFO: [Synth 8-256] done synthesizing module 'RgbLed' (0#1) [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:34]
-INFO: [Synth 8-3491] module 'SYNCHRNZR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/SYNCHRONIZER.vhd:6' bound to instance 'Inst_SYNCHRNZR1' of component 'SYNCHRNZR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:102]
-INFO: [Synth 8-638] synthesizing module 'SYNCHRNZR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/SYNCHRONIZER.vhd:13]
-INFO: [Synth 8-256] done synthesizing module 'SYNCHRNZR' (0#1) [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/SYNCHRONIZER.vhd:13]
-INFO: [Synth 8-3491] module 'EDGEDTCTR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/EDGEDETECTOR.vhd:8' bound to instance 'Ins_EDGEDTCTR1' of component 'EDGEDTCTR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:108]
-INFO: [Synth 8-638] synthesizing module 'EDGEDTCTR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/EDGEDETECTOR.vhd:16]
-INFO: [Synth 8-256] done synthesizing module 'EDGEDTCTR' (0#1) [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/EDGEDETECTOR.vhd:16]
-INFO: [Synth 8-3491] module 'SYNCHRNZR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/SYNCHRONIZER.vhd:6' bound to instance 'Inst_SYNCHRNZR2' of component 'SYNCHRNZR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:114]
-INFO: [Synth 8-3491] module 'EDGEDTCTR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/EDGEDETECTOR.vhd:8' bound to instance 'Ins_EDGEDTCTR2' of component 'EDGEDTCTR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:120]
-INFO: [Synth 8-3491] module 'SYNCHRNZR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/SYNCHRONIZER.vhd:6' bound to instance 'Inst_SYNCHRNZR3' of component 'SYNCHRNZR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:126]
-INFO: [Synth 8-3491] module 'EDGEDTCTR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/EDGEDETECTOR.vhd:8' bound to instance 'Ins_EDGEDTCTR3' of component 'EDGEDTCTR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:132]
-INFO: [Synth 8-3491] module 'SYNCHRNZR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/SYNCHRONIZER.vhd:6' bound to instance 'Inst_SYNCHRNZR4' of component 'SYNCHRNZR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:138]
-INFO: [Synth 8-3491] module 'EDGEDTCTR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/EDGEDETECTOR.vhd:8' bound to instance 'Ins_EDGEDTCTR4' of component 'EDGEDTCTR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:144]
-INFO: [Synth 8-3491] module 'SYNCHRNZR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/SYNCHRONIZER.vhd:6' bound to instance 'Inst_SYNCHRNZR5' of component 'SYNCHRNZR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:150]
-INFO: [Synth 8-3491] module 'EDGEDTCTR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/EDGEDETECTOR.vhd:8' bound to instance 'Ins_EDGEDTCTR5' of component 'EDGEDTCTR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:156]
+INFO: [Synth 8-3491] module 'SYNCHRNZR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/SYNCHRONIZER.vhd:6' bound to instance 'Inst_SYNCHRNZR1' of component 'SYNCHRNZR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:104]
+INFO: [Synth 8-638] synthesizing module 'SYNCHRNZR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/SYNCHRONIZER.vhd:15]
+INFO: [Synth 8-3491] module 'Prescaller' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/Prescaller.vhd:6' bound to instance 'Pres' of component 'Prescaller' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/SYNCHRONIZER.vhd:29]
+INFO: [Synth 8-256] done synthesizing module 'SYNCHRNZR' (0#1) [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/SYNCHRONIZER.vhd:15]
+INFO: [Synth 8-3491] module 'EDGEDTCTR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/EDGEDETECTOR.vhd:8' bound to instance 'Ins_EDGEDTCTR1' of component 'EDGEDTCTR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:111]
+INFO: [Synth 8-638] synthesizing module 'EDGEDTCTR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/EDGEDETECTOR.vhd:17]
+INFO: [Synth 8-3491] module 'Prescaller' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/Prescaller.vhd:6' bound to instance 'Pres' of component 'Prescaller' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/EDGEDETECTOR.vhd:31]
+INFO: [Synth 8-256] done synthesizing module 'EDGEDTCTR' (0#1) [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/EDGEDETECTOR.vhd:17]
+INFO: [Synth 8-3491] module 'SYNCHRNZR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/SYNCHRONIZER.vhd:6' bound to instance 'Inst_SYNCHRNZR2' of component 'SYNCHRNZR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:118]
+INFO: [Synth 8-3491] module 'EDGEDTCTR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/EDGEDETECTOR.vhd:8' bound to instance 'Ins_EDGEDTCTR2' of component 'EDGEDTCTR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:125]
+INFO: [Synth 8-3491] module 'SYNCHRNZR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/SYNCHRONIZER.vhd:6' bound to instance 'Inst_SYNCHRNZR3' of component 'SYNCHRNZR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:132]
+INFO: [Synth 8-3491] module 'EDGEDTCTR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/EDGEDETECTOR.vhd:8' bound to instance 'Ins_EDGEDTCTR3' of component 'EDGEDTCTR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:139]
+INFO: [Synth 8-3491] module 'SYNCHRNZR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/SYNCHRONIZER.vhd:6' bound to instance 'Inst_SYNCHRNZR4' of component 'SYNCHRNZR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:146]
+INFO: [Synth 8-3491] module 'EDGEDTCTR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/EDGEDETECTOR.vhd:8' bound to instance 'Ins_EDGEDTCTR4' of component 'EDGEDTCTR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:153]
+INFO: [Synth 8-3491] module 'SYNCHRNZR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/SYNCHRONIZER.vhd:6' bound to instance 'Inst_SYNCHRNZR5' of component 'SYNCHRNZR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:160]
+INFO: [Synth 8-3491] module 'EDGEDTCTR' declared at 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/EDGEDETECTOR.vhd:8' bound to instance 'Ins_EDGEDTCTR5' of component 'EDGEDTCTR' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:167]
 INFO: [Synth 8-256] done synthesizing module 'top' (0#1) [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/top.vhd:27]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1305.629 ; gain = 601.766
+Finished RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1308.047 ; gain = 602.430
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1305.629 ; gain = 601.766
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1308.047 ; gain = 602.430
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1305.629 ; gain = 601.766
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1308.047 ; gain = 602.430
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1305.629 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1308.047 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -101,28 +103,28 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1386.457 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1386.012 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1386.457 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 1386.012 ; gain = 0.000
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 1386.457 ; gain = 682.594
+Finished Constraint Validation : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 1386.012 ; gain = 680.395
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 1386.457 ; gain = 682.594
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 1386.012 ; gain = 680.395
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 1386.457 ; gain = 682.594
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 1386.012 ; gain = 680.395
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'currentState_reg' in module 'RgbLed'
 ---------------------------------------------------------------------------------------------------
@@ -135,15 +137,15 @@ INFO: [Synth 8-802] inferred FSM for state register 'currentState_reg' in module
               stled12off |                              100 |                              100
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'currentState_reg' using encoding 'sequential' in module 'RgbLed'
-WARNING: [Synth 8-327] inferring latch for variable 'fLed2Off_reg' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:265]
-WARNING: [Synth 8-327] inferring latch for variable 'colorcntgreen_reg' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:204]
-WARNING: [Synth 8-327] inferring latch for variable 'red_reg' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:118]
-WARNING: [Synth 8-327] inferring latch for variable 'green_reg' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:125]
-WARNING: [Synth 8-327] inferring latch for variable 'blue_reg' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:132]
-WARNING: [Synth 8-327] inferring latch for variable 'colorcntred_reg' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:203]
-WARNING: [Synth 8-327] inferring latch for variable 'colorcntblue_reg' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:205]
+WARNING: [Synth 8-327] inferring latch for variable 'fLed2Off_reg' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:267]
+WARNING: [Synth 8-327] inferring latch for variable 'red_reg' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:119]
+WARNING: [Synth 8-327] inferring latch for variable 'green_reg' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:126]
+WARNING: [Synth 8-327] inferring latch for variable 'blue_reg' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:133]
+WARNING: [Synth 8-327] inferring latch for variable 'colorcntred_reg' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:204]
+WARNING: [Synth 8-327] inferring latch for variable 'colorcntgreen_reg' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:205]
+WARNING: [Synth 8-327] inferring latch for variable 'colorcntblue_reg' [C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.srcs/sources_1/new/RGBLED.vhd:206]
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1386.457 ; gain = 682.594
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 1386.012 ; gain = 680.395
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -181,25 +183,25 @@ Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1386.457 ; gain = 682.594
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 1386.012 ; gain = 680.395
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 1518.672 ; gain = 814.809
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 1522.656 ; gain = 817.039
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 1553.172 ; gain = 849.309
+Finished Timing Optimization : Time (s): cpu = 00:00:24 ; elapsed = 00:00:26 . Memory (MB): peak = 1563.719 ; gain = 858.102
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 1553.172 ; gain = 849.309
+Finished Technology Mapping : Time (s): cpu = 00:00:24 ; elapsed = 00:00:26 . Memory (MB): peak = 1563.719 ; gain = 858.102
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -217,55 +219,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 1767.246 ; gain = 1063.383
+Finished IO Insertion : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 1773.266 ; gain = 1067.648
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 1767.246 ; gain = 1063.383
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 1773.266 ; gain = 1067.648
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 1767.246 ; gain = 1063.383
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 1773.266 ; gain = 1067.648
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 1767.246 ; gain = 1063.383
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 1773.266 ; gain = 1067.648
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 1767.246 ; gain = 1063.383
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 1773.266 ; gain = 1067.648
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 1767.246 ; gain = 1063.383
----------------------------------------------------------------------------------
----------------------------------------------------------------------------------
-Start ROM, RAM, DSP, Shift Register and Retiming Reporting
----------------------------------------------------------------------------------
-
-Static Shift Register Report:
-+------------+----------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
-|Module Name | RTL Name                   | Length | Width | Reset Signal | Pull out first Reg | Pull out last Reg | SRL16E | SRLC32E | 
-+------------+----------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
-|top         | Ins_EDGEDTCTR1/sreg_reg[0] | 4      | 1     | NO           | YES                | YES               | 1      | 0       | 
-|top         | Ins_EDGEDTCTR2/sreg_reg[0] | 4      | 1     | NO           | YES                | YES               | 1      | 0       | 
-|top         | Ins_EDGEDTCTR3/sreg_reg[0] | 4      | 1     | NO           | YES                | YES               | 1      | 0       | 
-|top         | Ins_EDGEDTCTR4/sreg_reg[0] | 4      | 1     | NO           | YES                | YES               | 1      | 0       | 
-|top         | Ins_EDGEDTCTR5/sreg_reg[0] | 4      | 1     | NO           | YES                | YES               | 1      | 0       | 
-+------------+----------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
-
----------------------------------------------------------------------------------
-Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 1773.266 ; gain = 1067.648
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -282,42 +266,41 @@ Report Cell Usage:
 |      |Cell   |Count |
 +------+-------+------+
 |1     |BUFG   |     1|
-|2     |CARRY4 |    35|
-|3     |LUT1   |    10|
-|4     |LUT2   |    27|
-|5     |LUT3   |    26|
-|6     |LUT4   |    66|
-|7     |LUT5   |    15|
-|8     |LUT6   |    12|
-|9     |SRL16E |     5|
-|10    |FDRE   |   175|
-|11    |LD     |    49|
-|12    |IBUF   |     7|
-|13    |OBUF   |    11|
+|2     |CARRY4 |    95|
+|3     |LUT1   |    20|
+|4     |LUT2   |    19|
+|5     |LUT3   |    39|
+|6     |LUT4   |   119|
+|7     |LUT5   |    22|
+|8     |LUT6   |    22|
+|9     |FDRE   |   425|
+|10    |LD     |    49|
+|11    |IBUF   |     7|
+|12    |OBUF   |    11|
 +------+-------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 1767.246 ; gain = 1063.383
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 1773.266 ; gain = 1067.648
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 8 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:18 ; elapsed = 00:00:25 . Memory (MB): peak = 1767.246 ; gain = 982.555
-Synthesis Optimization Complete : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 1767.246 ; gain = 1063.383
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:19 ; elapsed = 00:00:28 . Memory (MB): peak = 1773.266 ; gain = 989.684
+Synthesis Optimization Complete : Time (s): cpu = 00:00:28 ; elapsed = 00:00:31 . Memory (MB): peak = 1773.266 ; gain = 1067.648
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1776.402 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 84 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1782.457 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 144 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1780.113 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1786.117 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 49 instances were transformed.
   LD => LDCE: 49 instances
 
-Synth Design complete | Checksum: eb62b705
+Synth Design complete | Checksum: d213e719
 INFO: [Common 17-83] Releasing license: Synthesis
-55 Infos, 15 Warnings, 0 Critical Warnings and 0 Errors encountered.
+57 Infos, 15 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:29 ; elapsed = 00:00:33 . Memory (MB): peak = 1780.113 ; gain = 1278.203
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1780.113 ; gain = 0.000
+synth_design: Time (s): cpu = 00:00:32 ; elapsed = 00:00:46 . Memory (MB): peak = 1786.117 ; gain = 1282.305
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1786.117 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'C:/Users/jacob/Downloads/JaCRGB2 - prueba4final/RGB2.runs/synth_1/top.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file top_utilization_synth.rpt -pb top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Fri Jan 16 13:44:35 2026...
+INFO: [Common 17-206] Exiting Vivado at Sun Jan 18 14:40:12 2026...

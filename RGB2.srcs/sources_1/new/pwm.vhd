@@ -6,8 +6,7 @@ use ieee.std_logic_signed.all;
 
 entity pwm is
    generic ( 
-   max_val: integer := 255; -- rango del PWM
-   val_bits: integer := 7
+   max_val: integer := 255 -- rango PWM -- MODIFICAMOS
    );
    port(
       clk_i : in std_logic; -- reloj de la placa 100MHz
@@ -62,6 +61,16 @@ Pres: Prescaller
    
    pwm_o <= output;
 end Behavioral;
+
+-- Dividimos el componente PWM en dos prcesos. El primero sirve de un contador,
+-- el cual, va contando de uno en uno de 0 hasta 255. El segundo proceso sirve 
+-- para comparar el el ciclo de trabajo que queremos con el ciclo total del pwm.
+-- La salida del componente corresponde al brillo del led. Contra mayor "data_i" 
+-- mayor será el ciclo de trabajo y por lo tanto mayor será el brillo de los leds.
+-- La salida "output" se mantiene a uno si el contador (señal "cnt")es menor que
+-- el ciclo de trabajo "data_i".
+
+
 
 
 

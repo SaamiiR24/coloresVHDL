@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Fri Jan 16 13:45:11 2026
+| Date         : Sun Jan 18 14:40:50 2026
 | Host         : LAPTOP-JIVQAT26 running 64-bit major release  (build 9200)
 | Command      : report_drc -file top_drc_opted.rpt -pb top_drc_opted.pb -rpx top_drc_opted.rpx
 | Design       : top
@@ -24,12 +24,12 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max checks: <unlimited>
-             Checks found: 6
+             Checks found: 16
 +-------------+----------+-------------------------------------------------------------+--------+
 | Rule        | Severity | Description                                                 | Checks |
 +-------------+----------+-------------------------------------------------------------+--------+
 | CFGBVS-1    | Warning  | Missing CFGBVS and CONFIG_VOLTAGE Design Properties         | 1      |
-| PLHOLDVIO-2 | Warning  | Non-Optimal connections which could lead to hold violations | 5      |
+| PLHOLDVIO-2 | Warning  | Non-Optimal connections which could lead to hold violations | 15     |
 +-------------+----------+-------------------------------------------------------------+--------+
 
 2. REPORT DETAILS
@@ -49,6 +49,41 @@ Related violations: <none>
 
 PLHOLDVIO-2#1 Warning
 Non-Optimal connections which could lead to hold violations  
+A LUT Ins_EDGEDTCTR1/Pres/sreg[2]_i_1 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Ins_EDGEDTCTR1/sreg_reg[0], Ins_EDGEDTCTR1/sreg_reg[1]
+Ins_EDGEDTCTR1/sreg_reg[2]
+Related violations: <none>
+
+PLHOLDVIO-2#2 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Ins_EDGEDTCTR2/Pres/sreg[2]_i_1__0 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Ins_EDGEDTCTR2/sreg_reg[0], Ins_EDGEDTCTR2/sreg_reg[1]
+Ins_EDGEDTCTR2/sreg_reg[2]
+Related violations: <none>
+
+PLHOLDVIO-2#3 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Ins_EDGEDTCTR3/Pres/sreg[2]_i_1__1 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Ins_EDGEDTCTR3/sreg_reg[0], Ins_EDGEDTCTR3/sreg_reg[1]
+Ins_EDGEDTCTR3/sreg_reg[2]
+Related violations: <none>
+
+PLHOLDVIO-2#4 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Ins_EDGEDTCTR4/Pres/sreg[2]_i_1__2 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Ins_EDGEDTCTR4/sreg_reg[0], Ins_EDGEDTCTR4/sreg_reg[1]
+Ins_EDGEDTCTR4/sreg_reg[2]
+Related violations: <none>
+
+PLHOLDVIO-2#5 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Ins_EDGEDTCTR5/Pres/sreg[2]_i_1__3 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Ins_EDGEDTCTR5/sreg_reg[0], Ins_EDGEDTCTR5/sreg_reg[1]
+Ins_EDGEDTCTR5/sreg_reg[2]
+Related violations: <none>
+
+PLHOLDVIO-2#6 Warning
+Non-Optimal connections which could lead to hold violations  
 A LUT Inst_RgbLed/Cnt/Pres/cnt[7]_i_3 is driving clock pin of 8 cells. This could lead to large hold time violations. Involved cells are:
 Inst_RgbLed/Cnt/cnt_reg[0], Inst_RgbLed/Cnt/cnt_reg[1],
 Inst_RgbLed/Cnt/cnt_reg[2], Inst_RgbLed/Cnt/cnt_reg[3],
@@ -56,7 +91,7 @@ Inst_RgbLed/Cnt/cnt_reg[4], Inst_RgbLed/Cnt/cnt_reg[5],
 Inst_RgbLed/Cnt/cnt_reg[6], Inst_RgbLed/Cnt/cnt_reg[7]
 Related violations: <none>
 
-PLHOLDVIO-2#2 Warning
+PLHOLDVIO-2#7 Warning
 Non-Optimal connections which could lead to hold violations  
 A LUT Inst_RgbLed/Pres/FSM_sequential_currentState[2]_i_2 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
 Inst_RgbLed/FSM_sequential_currentState_reg[0],
@@ -64,7 +99,7 @@ Inst_RgbLed/FSM_sequential_currentState_reg[1]
 Inst_RgbLed/FSM_sequential_currentState_reg[2]
 Related violations: <none>
 
-PLHOLDVIO-2#3 Warning
+PLHOLDVIO-2#8 Warning
 Non-Optimal connections which could lead to hold violations  
 A LUT Inst_RgbLed/PwmBlue/Pres/cnt[7]_i_3__2 is driving clock pin of 8 cells. This could lead to large hold time violations. Involved cells are:
 Inst_RgbLed/PwmBlue/cnt_reg[0], Inst_RgbLed/PwmBlue/cnt_reg[1],
@@ -73,7 +108,7 @@ Inst_RgbLed/PwmBlue/cnt_reg[4], Inst_RgbLed/PwmBlue/cnt_reg[5],
 Inst_RgbLed/PwmBlue/cnt_reg[6], Inst_RgbLed/PwmBlue/cnt_reg[7]
 Related violations: <none>
 
-PLHOLDVIO-2#4 Warning
+PLHOLDVIO-2#9 Warning
 Non-Optimal connections which could lead to hold violations  
 A LUT Inst_RgbLed/PwmGreen/Pres/cnt[7]_i_3__1 is driving clock pin of 8 cells. This could lead to large hold time violations. Involved cells are:
 Inst_RgbLed/PwmGreen/cnt_reg[0], Inst_RgbLed/PwmGreen/cnt_reg[1],
@@ -82,13 +117,48 @@ Inst_RgbLed/PwmGreen/cnt_reg[4], Inst_RgbLed/PwmGreen/cnt_reg[5],
 Inst_RgbLed/PwmGreen/cnt_reg[6], Inst_RgbLed/PwmGreen/cnt_reg[7]
 Related violations: <none>
 
-PLHOLDVIO-2#5 Warning
+PLHOLDVIO-2#10 Warning
 Non-Optimal connections which could lead to hold violations  
 A LUT Inst_RgbLed/PwmRed/Pres/cnt[7]_i_3__0 is driving clock pin of 8 cells. This could lead to large hold time violations. Involved cells are:
 Inst_RgbLed/PwmRed/cnt_reg[0], Inst_RgbLed/PwmRed/cnt_reg[1],
 Inst_RgbLed/PwmRed/cnt_reg[2], Inst_RgbLed/PwmRed/cnt_reg[3],
 Inst_RgbLed/PwmRed/cnt_reg[4], Inst_RgbLed/PwmRed/cnt_reg[5],
 Inst_RgbLed/PwmRed/cnt_reg[6], Inst_RgbLed/PwmRed/cnt_reg[7]
+Related violations: <none>
+
+PLHOLDVIO-2#11 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Inst_SYNCHRNZR1/Pres/sreg[1]_i_1 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Inst_SYNCHRNZR1/SYNC_OUT_reg, Inst_SYNCHRNZR1/sreg_reg[0]
+Inst_SYNCHRNZR1/sreg_reg[1]
+Related violations: <none>
+
+PLHOLDVIO-2#12 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Inst_SYNCHRNZR2/Pres/sreg[1]_i_1__0 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Inst_SYNCHRNZR2/SYNC_OUT_reg, Inst_SYNCHRNZR2/sreg_reg[0]
+Inst_SYNCHRNZR2/sreg_reg[1]
+Related violations: <none>
+
+PLHOLDVIO-2#13 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Inst_SYNCHRNZR3/Pres/sreg[1]_i_1__1 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Inst_SYNCHRNZR3/SYNC_OUT_reg, Inst_SYNCHRNZR3/sreg_reg[0]
+Inst_SYNCHRNZR3/sreg_reg[1]
+Related violations: <none>
+
+PLHOLDVIO-2#14 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Inst_SYNCHRNZR4/Pres/sreg[1]_i_1__2 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Inst_SYNCHRNZR4/SYNC_OUT_reg, Inst_SYNCHRNZR4/sreg_reg[0]
+Inst_SYNCHRNZR4/sreg_reg[1]
+Related violations: <none>
+
+PLHOLDVIO-2#15 Warning
+Non-Optimal connections which could lead to hold violations  
+A LUT Inst_SYNCHRNZR5/Pres/sreg[1]_i_1__3 is driving clock pin of 3 cells. This could lead to large hold time violations. Involved cells are:
+Inst_SYNCHRNZR5/SYNC_OUT_reg, Inst_SYNCHRNZR5/sreg_reg[0]
+Inst_SYNCHRNZR5/sreg_reg[1]
 Related violations: <none>
 
 

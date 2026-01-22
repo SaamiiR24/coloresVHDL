@@ -13,7 +13,7 @@ port(
  
  architecture behavioral of Prescaller is
  
- constant CLK_DIV : integer := 10000000; -- constante por la que dividimos la frecuencia del reloj
+ constant CLK_DIV : integer := 3; -- constante por la que dividimos la frecuencia del reloj
  signal clkCnt : integer := 0; -- contador 
  
  begin 
@@ -32,6 +32,12 @@ port(
   slowClk <= '1' when clkCnt = CLK_DIV-1 else '0'; -- 10 Hz que buscamos 
  end behavioral;
  
+ -- La funcción principal del Prescaller es reducir el reloj de la placa. Para ello, 
+ -- creamos una señal "clkCnt" que cuente los flancos positivos del reloj de entrada.
+ -- La salida "slowCLK" será 1 cuando el contador alcance la constante establecida.
+ -- Con esto conseguimos obtener una nueva frecuencia, con la cual trabajamos en otros
+ -- componentes del proyecto. En este  caso buscamos una salida de 10 Hz por lo que debemos de
+ -- declarar un CLK_DIV de 10000000; de esta forma: 100Mhz/10000000 = 10HZ.
  
    
  
